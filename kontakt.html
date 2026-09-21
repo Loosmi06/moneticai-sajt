@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kontakt — MoneticAI</title>
+<meta name="description" content="Piši nam: pitanja o proizvodima, predlozi tema, saradnja sa brendovima ili konsultacije o AI automatizaciji. Odgovaramo u roku od 24 sata.">
+<meta name="theme-color" content="#08080B">
+<link rel="icon" href="assets/img/favicon.png" type="image/png">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="brand" aria-label="MonetIC AI početna">
+      <span class="brand__mark"><img src="assets/img/robot-head.png" alt="MonetIC AI maskota"></span>
+      <span><span class="brand__text">Monetic<span>AI</span></span><span class="brand__sub"></span></span>
+    </a>
+    <nav class="nav__links" aria-label="Glavna navigacija">
+      <a href="index.html">Početna</a>
+      <a href="shop.html">Shop</a>
+      <a href="vesti.html">AI Vesti</a>
+      <a href="o-nama.html">O nama</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <div class="nav__cta">
+      <a href="shop.html#besplatno" class="btn btn--primary btn--sm">Besplatan vodič</a>
+      <button class="nav__burger" aria-label="Otvori meni" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu">
+  <a href="index.html">Početna</a>
+  <a href="shop.html">Shop</a>
+  <a href="vesti.html">AI Vesti</a>
+  <a href="o-nama.html">O nama</a>
+  <a href="kontakt.html">Kontakt</a>
+  <a href="shop.html#besplatno" class="btn btn--primary">Preuzmi besplatan vodič</a>
+</div>
+
+<main>
+
+<!-- ============ PAGE HEAD ============ -->
+<section class="page-head grid-bg">
+  <div class="container page-head__inner">
+    <div class="page-head__text">
+      <span class="eyebrow">Kontakt</span>
+      <h1>Piši nam — <span class="grad">odgovara čovek</span></h1>
+      <p class="lead">
+        Pitanje o proizvodu, ideja za saradnju ili ti treba pomoć oko AI automatizacije?
+        Napiši par rečenica i javljamo se, obično u roku od 24 sata.
+      </p>
+    </div>
+    <div class="page-head__visual">
+      <img src="assets/img/masep.png" alt="Robot maskota maše" width="476" height="720">
+    </div>
+  </div>
+</section>
+
+<!-- ============ FORMA + INFO ============ -->
+<section class="section" style="padding-top:clamp(48px,6vw,80px);">
+  <div class="container split" style="align-items:start;">
+
+    <!-- FORMA -->
+    <!-- UPUTSTVO: Forma šalje poruke u Supabase bazu (tabela "poruke").
+         Podešavanje: otvori assets/js/supabase-config.js i upiši svoj
+         SUPABASE_URL i SUPABASE_ANON_KEY (Supabase dashboard → Settings → API).
+         Detaljno uputstvo i SQL za pravljenje tabele su u README.md.
+         Dok ne podesiš Supabase, forma automatski radi preko mejl klijenta
+         (data-mailto ispod), tako da sajt radi i bez baze. -->
+    <div class="card reveal" style="padding:clamp(24px,3vw,38px);">
+      <h2 style="font-size:clamp(21px,2.6vw,27px); margin-bottom:8px;">Pošalji poruku</h2>
+      <p style="color:var(--text-muted); font-size:14.6px; margin-bottom:26px;">Sva polja označena zvezdicom su obavezna.</p>
+
+      <div class="form__ok">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        <span>Poruka je uspešno poslata. Javljamo se u roku od 24 sata — ako ti ne stigne odgovor, piši direktno na <b>kontakt@moneticai.rs</b>.</span>
+      </div>
+
+      <form class="form" id="kontakt-forma" data-mailto="kontakt@moneticai.rs" novalidate>
+        <div class="field">
+          <label for="ime">Ime i prezime *</label>
+          <input type="text" id="ime" name="ime" placeholder="Petar Petrović" data-required autocomplete="name">
+          <span class="field__err">Unesi svoje ime.</span>
+        </div>
+
+        <div class="field">
+          <label for="email">Email adresa *</label>
+          <input type="email" id="email" name="email" placeholder="tvoj@email.com" data-required autocomplete="email">
+          <span class="field__err">Unesi ispravnu email adresu.</span>
+        </div>
+
+        <div class="field">
+          <label for="tema">Tema</label>
+          <select id="tema" name="tema">
+            <option>Pitanje o proizvodu</option>
+            <option>Saradnja sa brendom</option>
+            <option>Konsultacije / AI automatizacija</option>
+            <option>Predlog teme za sadržaj</option>
+            <option>Problem sa kupovinom</option>
+            <option>Nešto drugo</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="poruka">Poruka *</label>
+          <textarea id="poruka" name="poruka" placeholder="Napiši ukratko o čemu se radi — što konkretnije, to brže mogu da pomognem." data-required></textarea>
+          <span class="field__err">Napiši bar nekoliko rečenica (najmanje 10 karaktera).</span>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--block">
+          Pošalji poruku
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg>
+        </button>
+        <p class="form__note">Podatke koristimo isključivo da bismo ti odgovorili. Bez spama i bez prosleđivanja trećim licima.</p>
+      </form>
+    </div>
+
+    <!-- INFO -->
+    <div class="reveal" style="display:grid; gap:16px;">
+      <div class="tile">
+        <div class="tile__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></div>
+        <div>
+          <h4>Email</h4>
+          <a href="mailto:kontakt@moneticai.rs">kontakt@moneticai.rs</a>
+          <p style="font-size:13.4px; margin-top:4px;">Najbrži način da dobiješ odgovor.</p>
+        </div>
+      </div>
+
+      <div class="tile">
+        <div class="tile__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></div>
+        <div>
+          <h4>Instagram</h4>
+          <a href="https://www.instagram.com/moneticai/" target="_blank" rel="noopener">@moneticai</a>
+          <p style="font-size:13.4px; margin-top:4px;">Svakodnevni saveti, alati i kratki vodiči.</p>
+        </div>
+      </div>
+
+      <div class="tile">
+        <div class="tile__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <div>
+          <h4>Vreme odgovora</h4>
+          <p>Radnim danima do 24 sata, vikendom nešto sporije.</p>
+        </div>
+      </div>
+<!--
+      <div class="tile">
+        <div class="tile__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div>
+          <h4>Gde smo</h4>
+          <p>Srbija — radimo online, sa klijentima iz celog regiona.</p>
+        </div>
+      </div>
+-->
+      <div class="note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span>Za pitanja o već kupljenom proizvodu, navedi email sa kojim si kupovao — tako te brže pronađemo.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ZA ŠTA MOŽEŠ DA SE JAVIŠ ============ 
+<section class="section" style="background:var(--bg-2); border-block:1px solid var(--line);">
+  <div class="container">
+    <div class="head-center reveal">
+      <span class="eyebrow">Saradnja</span>
+      <h2 class="section-title section-title--center">Za šta nam se najčešće javljate</h2>
+    </div>
+
+    <div class="grid grid--3">
+      <article class="card reveal">
+        <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div>
+        <h3>Konsultacije 1-na-1</h3>
+        <p>Sat vremena razgovora o tome gde ti AI konkretno može uštedeti vreme u poslu — sa planom koraka na kraju.</p>
+      </article>
+      <article class="card reveal" data-delay="80">
+        <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></svg></div>
+        <h3>Postavljanje automatizacija</h3>
+        <p>Mejlovi, ponude, opisi proizvoda, podrška — postavljamo sistem koji radi i predajemo ti ključeve.</p>
+      </article>
+      <article class="card reveal" data-delay="160">
+        <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2H7a2 2 0 0 0-2 2v16l7-3 7 3V4a2 2 0 0 0-2-2z"/></svg></div>
+        <h3>Saradnja sa brendovima</h3>
+        <p>Ako pravite AI alat ili uslugu za domaće tržište, javite se sa predlogom — gledamo šta ima smisla za našu publiku.</p>
+      </article>
+    </div>
+  </div>
+</section>
+-->
+<!-- ============ FAQ ============ -->
+<section class="section" style="background:var(--bg-2); border-block:1px solid var(--line);">
+  <div class="container">
+    <div class="head-center reveal">
+      <span class="eyebrow">Pre nego što pišeš</span>
+      <h2 class="section-title section-title--center">Možda je odgovor već ovde</h2>
+    </div>
+    <div class="faq reveal">
+      <div class="faq__item">
+        <button class="faq__q" aria-expanded="false">Nije mi stigao materijal nakon kupovine<i></i></button>
+        <div class="faq__a"><p>Proveri spam i „Promocije" folder — mejl stiže odmah nakon uplate. Ako ga nema ni tamo, piši nam sa email adresom koju si koristio pri kupovini i poslaćemo link ručno.</p></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" aria-expanded="false">Radite li AI automatizacije po meri?<i></i></button>
+        <div class="faq__a"><p>Da, za manje biznise i frilensere.</p></div>
+      </div>
+      <div class="faq__item">
+        <button class="faq__q" aria-expanded="false">Mogu li da predložim temu za vodič?<i></i></button>
+        <div class="faq__a"><p>Naravno, i to nam je najkorisnija poruka koju možemo da dobijemo. Dosta materijala je nastalo baš iz pitanja publike.</p></div>
+      </div>
+      <!--
+      <div class="faq__item">
+        <button class="faq__q" aria-expanded="false">Da li držite obuke za timove?<i></i></button>
+        <div class="faq__a"><p>Da — radionice za timove od 5 do 20 ljudi, uživo ili online, prilagođene poslu kojim se firma bavi. Javi se za termine i uslove.</p></div>
+      </div>
+      -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section--tight" style="padding-bottom:clamp(60px,7vw,100px);">
+  <div class="container">
+    <div class="cta-band reveal">
+      <div>
+        <h2>7 dana. 20 minuta dnevno. Jedan gotov AI projekat.</h2>
+        <p>Ostavi email i radna sveska stiže odmah. Ako ti se ne svidi, odjaviš se u jednom kliku i nismo se ni posvađali.</p>
+        <form class="newsletter"
+      action="https://assets.mailerlite.com/jsonp/2517581/forms/199037071407449505/subscribe"
+      method="post"
+      data-mailerlite>
+            <input type="email" name="fields[email]" placeholder="tvoj@email.com" aria-label="Email adresa" required>
+            <input type="hidden" name="ml-submit" value="1">
+            <input type="hidden" name="anticsrf" value="true">
+            <button type="submit" class="btn btn--light">Pošalji mi kurs</button>
+        </form>
+        <p data-newsletter-msg style="opacity:0; transition:opacity .3s; margin-top:12px; font-size:14px;"></p>
+      </div>
+      <div class="cta-band__visual">
+        <img src="assets/img/7dana-do-provg-ai-projekta-knjiga.png" alt="Robot maskota" style="width:min(100%,190px); filter:drop-shadow(0 24px 44px rgba(0,0,0,.45));" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <a href="index.html" class="brand" style="margin-bottom:16px;">
+          <span class="brand__mark"><img src="assets/img/robot-head.png" alt=""></span>
+          <span><span class="brand__text">Monetic<span>AI</span></span><span class="brand__sub"></span></span>
+        </a>
+        <p>Učimo te da koristiš veštačku inteligenciju na način koji ti štedi vreme i donosi prihod — jednostavno, na srpskom.</p>
+        <div class="socials">
+          <a href="https://www.instagram.com/moneticai/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+          <!--<a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M22 12s0-3.5-.5-5c-.3-1-1-1.8-2-2C17.7 4.5 12 4.5 12 4.5s-5.7 0-7.5.5c-1 .2-1.7 1-2 2C2 8.5 2 12 2 12s0 3.5.5 5c.3 1 1 1.8 2 2 1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5c1-.2 1.7-1 2-2 .5-1.5.5-5 .5-5z"/><path d="m10 15 5-3-5-3z" fill="currentColor" stroke="none"/></svg></a> -->
+          <!--<a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3c.5 2.5 2 4 4.5 4.3v3.2c-1.7 0-3.3-.5-4.5-1.4v6.3a6.2 6.2 0 1 1-5.3-6.1v3.3a3 3 0 1 0 2.1 2.8V3z"/></svg></a> -->
+        </div>
+      </div>
+      <div>
+        <h4>Stranice</h4>
+        <div class="footer__links">
+          <a href="index.html">Početna</a><a href="shop.html">Shop</a><a href="vesti.html">AI Vesti</a><a href="o-nama.html">O nama</a><a href="kontakt.html">Kontakt</a>
+        </div>
+      </div>
+      <div>
+        <h4>Kategorije</h4>
+        <div class="footer__links">
+          <a href="shop.html#e-knjige">E-knjige i vodiči</a><a href="shop.html#kursevi">Kursevi</a><a href="shop.html#alati">AI alati</a><a href="shop.html#besplatno">Besplatno</a>
+        </div>
+      </div>
+      <div>
+        <h4>Ostani u toku</h4>
+        <p style="margin-bottom:14px;">Jedan mejl nedeljno: najvažnije AI vesti i po jedan prompt koji odmah možeš da iskoristiš.</p>
+        <form class="newsletter" data-newsletter style="max-width:100%;">
+          <input type="email" placeholder="tvoj@email.com" aria-label="Email adresa" required style="background:rgba(255,255,255,.05); border-color:var(--line); color:var(--text);">
+          <button type="submit" class="btn btn--primary btn--sm">Prijavi se</button>
+        </form>
+        <p data-newsletter-msg style="opacity:0; transition:opacity .3s; margin-top:10px; font-size:13px;"></p>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span data-year>2026</span> MoneticAI. Sva prava zadržana.</span>
+      <span>Neki linkovi ka alatima su affiliate linkovi — cena za tebe ostaje ista.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
