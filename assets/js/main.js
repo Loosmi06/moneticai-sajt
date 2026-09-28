@@ -287,39 +287,57 @@
     });
   });
 
-  /* ---------- 7b. MailerLite forme (e-book) ---------- */
-  document.querySelectorAll('[data-mailerlite]').forEach(function (nl) {
-    nl.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var input = nl.querySelector('input[type="email"]');
-      var msg = nl.parentElement.querySelector('[data-newsletter-msg]');
-      var value = (input.value || '').trim();
-      var valid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
+  /* ---------- 7b. MailerLite forme (e-book) ----------
+     Napomena: MailerLite-ov endpoint za forme (jsonp/.../subscribe) ne
+     prihvata pozive poslate preko fetch() — vraća grešku 503. Zato mora
+     da se šalje kao pravo slanje forme (kao kad bi korisnik sam kliknuo
+     submit), samo u skriveni iframe da se stranica ne osveži. Isti
+     pristup koristi i MailerLite-ov zvanični embed kod. */
+  (function () {
+    var ML_FRAME = 'ml-hidden-frame';
+    var mlForms = document.querySelectorAll('[data-mailerlite]');
+    if (!mlForms.length) return;
 
-      if (!valid) {
+    if (!document.getElementsByName(ML_FRAME).length) {
+      var frame = document.createElement('iframe');
+      frame.name = ML_FRAME;
+      frame.style.display = 'none';
+      frame.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(frame);
+    }
+
+    mlForms.forEach(function (nl) {
+      nl.setAttribute('target', ML_FRAME);
+
+      nl.addEventListener('submit', function (e) {
+        var input = nl.querySelector('input[type="email"]');
+        var msg = nl.parentElement.querySelector('[data-newsletter-msg]');
+        var value = (input.value || '').trim();
+        var valid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
+
+        if (!valid) {
+          e.preventDefault();
+          if (msg) {
+            msg.textContent = 'Unesi ispravnu email adresu.';
+            msg.style.color = '#FFE0DA';
+            msg.style.opacity = '1';
+          }
+          return;
+        }
+
+        // Ne pozivamo e.preventDefault() — forma se stvarno šalje,
+        // samo u skriveni iframe (target="ml-hidden-frame"), pa se
+        // stranica ne osvežava i MailerLite je prihvata.
         if (msg) {
-          msg.textContent = 'Unesi ispravnu email adresu.';
-          msg.style.color = '#FFE0DA';
+          var leadMagnet = nl.getAttribute('data-lead-magnet') || 'Tvoj vodič';
+          msg.textContent = 'Uspešno si se prijavio. ' + leadMagnet + ' upravo stiže na tvoj email 📩\n\nNe vidiš ga za par minuta? Proveri spam ili promocije folder, ponekad tu zna da se sakrije.';
+          msg.style.color = '#fff';
           msg.style.opacity = '1';
         }
-        return;
-      }
-
-      fetch(nl.action, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: new URLSearchParams(new FormData(nl))
-      }).catch(function () {});
-
-      if (msg) {
-        var leadMagnet = nl.getAttribute('data-lead-magnet') || 'Tvoj vodič';
-        msg.textContent = 'Uspešno si se prijavio. ' + leadMagnet + ' upravo stiže na tvoj email 📩\n\nNe vidiš ga za par minuta? Proveri spam ili promocije folder, ponekad tu zna da se sakrije.';
-        msg.style.color = '#fff';
-        msg.style.opacity = '1';
-      }
-      nl.reset();
+        setTimeout(function () { nl.reset(); }, 50);
+      });
     });
-  });
+  })();
 
   /* ---------- 8. Godina u footeru ---------- */
   document.querySelectorAll('[data-year]').forEach(function (el) {
