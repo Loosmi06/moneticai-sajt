@@ -339,6 +339,25 @@
     });
   })();
 
+  /* ---------- 7c. Poruka kad obavezan checkbox saglasnosti nije čekiran ----------
+     Bez ovoga browser potpuno tiho blokira slanje forme (prikaže samo
+     svoj podrazumevani baloončić, često na engleskom, lako se ne
+     primeti), a korisnik ne vidi nikakvu poruku na sajtu i misli da
+     je nešto pokvareno. */
+  document.querySelectorAll('form .consent input[type="checkbox"][required]').forEach(function (cb) {
+    cb.addEventListener('invalid', function (e) {
+      e.preventDefault();
+      var form = cb.closest('form');
+      var msg = form && form.parentElement && form.parentElement.querySelector('[data-newsletter-msg]');
+      if (msg) {
+        msg.textContent = 'Označi kvadratić da se slažeš sa slanjem mejlova, pa pošalji ponovo.';
+        msg.style.color = '#FFE0DA';
+        msg.style.opacity = '1';
+        msg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  });
+
   /* ---------- 8. Godina u footeru ---------- */
   document.querySelectorAll('[data-year]').forEach(function (el) {
     el.textContent = new Date().getFullYear();
