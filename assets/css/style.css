@@ -811,3 +811,25 @@ html.js .reveal.is-in{ opacity:1; transform:none; }
   .get-form button{ width:100%; }
   .cover-badge{ right:4%; }
 }
+
+/* ============ PRAVNO: saglasnost na formama i pravne stranice ============ */
+.consent{
+  flex-basis:100%; display:flex; gap:9px; align-items:flex-start;
+  font-size:12.5px; line-height:1.55; opacity:.88; text-align:left; cursor:pointer;
+}
+.newsletter .consent input, .get-form .consent input{
+  flex:none; width:16px; height:16px; min-width:16px; margin:2px 0 0; padding:0;
+  border-radius:4px; accent-color:var(--brand); cursor:pointer;
+}
+.consent a, .consent-note a{ color:inherit; text-decoration:underline; }
+.consent-note{ font-size:12.5px; line-height:1.55; color:var(--text-muted); margin-top:4px; }
+.footer__legal a{ color:inherit; text-decoration:underline; }
+.legal{ max-width:780px; margin-inline:auto; }
+.legal__meta{ color:var(--text-muted); font-size:14px; margin-bottom:28px; }
+.legal h2{ font-size:clamp(20px,2.4vw,26px); margin:40px 0 12px; letter-spacing:-.02em; }
+.legal p, .legal li{ color:var(--text-muted); line-height:1.75; }
+.legal p{ margin-bottom:14px; }
+.legal ul{ margin:0 0 16px 20px; list-style:disc; }
+.legal li{ margin-bottom:6px; }
+.legal b{ color:var(--text); }
+.legal a{ color:var(--brand); text-decoration:underline; }

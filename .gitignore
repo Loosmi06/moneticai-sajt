@@ -1,0 +1,3 @@
+# rezervne kopije, ne idu na sajt
+*.backup-*.html
+_backup-*/
