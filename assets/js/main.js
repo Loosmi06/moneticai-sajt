@@ -364,10 +364,16 @@
   });
 
   /* ---------- 9. Aktivan link u navigaciji ---------- */
-  var path = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  function normPath(v) {
+    v = (v || '').toLowerCase().split('#')[0].split('?')[0];
+    v = v.replace(/\/index\.html$/, '/').replace(/\.html$/, '').replace(/\/+$/, '');
+    return v === '' ? '/' : v;
+  }
+  var path = normPath(location.pathname);
   document.querySelectorAll('.nav__links a, .mobile-menu a').forEach(function (a) {
-    var href = (a.getAttribute('href') || '').toLowerCase();
-    if (href === path || (path === '' && href === 'index.html')) {
+    var href = a.getAttribute('href') || '';
+    if (href.indexOf('://') > -1) return;
+    if (normPath(href) === path) {
       a.classList.add('is-active');
     }
   });
