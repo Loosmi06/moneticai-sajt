@@ -184,6 +184,7 @@ ul{ margin:0; padding:0; list-style:none; }
 .brand__mark img{ width:36px; height:36px; object-fit:contain; }
 .brand__text{ font-weight:700; font-size:18.5px; letter-spacing:-.03em; line-height:1; }
 .brand__text span{ color:var(--brand); }
+.ai-o{ color:var(--brand); }
 .brand__sub{ display:block; font-size:9.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--text-dim); font-weight:500; margin-top:3px; }
 
 .nav__links{ display:flex; align-items:center; gap:4px; }
