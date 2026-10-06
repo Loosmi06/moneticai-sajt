@@ -13,14 +13,14 @@
 <meta name="theme-color" content="#08080B">
 <link rel="icon" href="/assets/img/favicon.png" type="image/png">
 <script>document.documentElement.classList.add('js')</script>
-<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/style.css?v=20261006">
 </head>
 <body>
 
 <header class="nav">
   <div class="nav__inner">
     <a href="/" class="brand" aria-label="moneticai početna">
-      <span class="brand__mark"><img src="/assets/img/robot-head.webp" alt="moneticai maskota"></span>
+      <span class="brand__mark"><img width="36" height="36" src="/assets/img/robot-head.webp" srcset="/assets/img/robot-head-80w.webp 80w, /assets/img/robot-head.webp 256w" sizes="36px" alt="moneticai maskota"></span>
       <span><span class="brand__text">monetic<span>ai</span></span><span class="brand__sub"></span></span>
     </a>
     <nav class="nav__links" aria-label="Glavna navigacija">
@@ -49,7 +49,7 @@
 <main>
 <section class="page-head grid-bg">
   <div class="container" style="text-align:center; padding:80px 0;">
-    <img src="/assets/img/razmislja1.webp" width="532" height="586" alt="Robot maskota razmišlja" style="width:min(70%,260px); margin:0 auto 24px;">
+    <img src="/assets/img/razmislja1.webp" srcset="/assets/img/razmislja1-80w.webp 80w, /assets/img/razmislja1-160w.webp 160w, /assets/img/razmislja1-240w.webp 240w, /assets/img/razmislja1-320w.webp 320w, /assets/img/razmislja1.webp 532w" sizes="(max-width: 600px) 251px, (max-width: 960px) 260px, 260px" width="532" height="586" alt="Robot maskota razmišlja" style="width:min(70%,260px); margin:0 auto 24px;">
     <h1>Ups, ova stranica <span class="grad">ne postoji</span></h1>
     <p style="max-width:520px; margin:16px auto 28px;">Link je možda zastareo ili je stranica premeštena. Evo gde možeš da nastaviš:</p>
     <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
@@ -66,7 +66,7 @@
     <div class="footer__grid">
       <div>
         <a href="/" class="brand" style="margin-bottom:16px;">
-          <span class="brand__mark"><img src="/assets/img/robot-head.webp" alt=""></span>
+          <span class="brand__mark"><img width="36" height="36" src="/assets/img/robot-head.webp" srcset="/assets/img/robot-head-80w.webp 80w, /assets/img/robot-head.webp 256w" sizes="36px" alt=""></span>
           <span><span class="brand__text">monetic<span>ai</span></span><span class="brand__sub"></span></span>
         </a>
         <p>Učimo te da koristiš veštačku inteligenciju na način koji ti štedi vreme i donosi prihod — jednostavno, na srpskom.</p>
@@ -77,19 +77,19 @@
         </div>
       </div>
       <div>
-        <h4>Stranice</h4>
+        <h2 class="footer__title">Stranice</h2>
         <div class="footer__links">
           <a href="/">Početna</a><a href="/shop">Shop</a><a href="/vesti">AI Vesti</a><a href="/o-nama">O nama</a><a href="/kontakt">Kontakt</a>
         </div>
       </div>
       <div>
-        <h4>Kategorije</h4>
+        <h2 class="footer__title">Kategorije</h2>
         <div class="footer__links">
           <a href="/shop#e-knjige">E-knjige i vodiči</a><a href="/shop#kursevi">Kursevi</a><a href="/shop#alati">AI alati</a><a href="/shop#besplatno">Besplatno</a>
         </div>
       </div>
       <div>
-        <h4>Ostani u toku</h4>
+        <h2 class="footer__title">Ostani u toku</h2>
         <p style="margin-bottom:14px;">Jedan mejl nedeljno: najvažnije AI vesti i po jedan prompt koji odmah možeš da iskoristiš.</p>
         <form class="newsletter" data-newsletter style="max-width:100%;">
           <input type="email" placeholder="tvoj@email.com" aria-label="Email adresa" required style="background:rgba(255,255,255,.05); border-color:var(--line); color:var(--text);">
@@ -108,8 +108,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/supabase-config.js"></script>
-<script src="/assets/js/supabase.js"></script>
-<script src="/assets/js/main.js"></script>
+<script src="/assets/js/main.js?v=20261006"></script>
 </body>
 </html>

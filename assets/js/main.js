@@ -131,10 +131,36 @@
      projekta. Ako ti vrednosti fale (još nisi podesio nalog), forme
      automatski padaju nazad na stari način rada, tako da sajt radi i
      pre nego što podesiš bazu. */
-  var supabaseClient = (window.supabase && window.SUPABASE_URL && window.SUPABASE_ANON_KEY
-    && window.SUPABASE_URL.indexOf('TVOJ-PROJEKAT') === -1)
-    ? window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY)
-    : null;
+  /* Supabase biblioteka (~210 KB) se više NE učitava na svakoj stranici.
+     Učitava se tek kad posetilac krene da popunjava formu (fokus na polje),
+     ili najkasnije u trenutku slanja. Tako je svaka stranica brža. */
+  var supabasePromise = null;
+  function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = src; s.async = true;
+      s.onload = resolve; s.onerror = reject;
+      document.head.appendChild(s);
+    });
+  }
+  function getSupabase() {
+    if (supabasePromise) return supabasePromise;
+    var base = '/assets/js/';
+    supabasePromise = (window.SUPABASE_URL ? Promise.resolve() : loadScript(base + 'supabase-config.js'))
+      .then(function () { return window.supabase ? null : loadScript(base + 'supabase.js'); })
+      .then(function () {
+        if (window.supabase && window.SUPABASE_URL && window.SUPABASE_ANON_KEY
+          && window.SUPABASE_URL.indexOf('TVOJ-PROJEKAT') === -1) {
+          return window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+        }
+        return null;
+      })
+      .catch(function () { supabasePromise = null; return null; });
+    return supabasePromise;
+  }
+  document.querySelectorAll('#kontakt-forma, [data-newsletter]').forEach(function (f) {
+    f.addEventListener('focusin', function () { getSupabase(); }, { once: true });
+  });
 
   /* ---------- 6b. Kontakt forma (čuva poruke u Supabase tabeli "poruke") ---------- */
   var form = document.querySelector('#kontakt-forma');
@@ -178,6 +204,9 @@
         form.reset();
       }
 
+      if (submitBtn) submitBtn.disabled = true;
+      getSupabase().then(function (supabaseClient) {
+      if (submitBtn) submitBtn.disabled = false;
       // Fallback: ako Supabase nije podešen, otvori mejl klijent kao ranije
       if (!supabaseClient) {
         var adresa = form.dataset.mailto || 'kontakt@moneticai.rs';
@@ -215,6 +244,7 @@
           if (submitBtn) submitBtn.disabled = false;
           alert('Nešto nije u redu, pokušaj ponovo ili piši direktno na ' + (form.dataset.mailto || 'kontakt@moneticai.rs') + '.');
         });
+      });
     });
 
     form.querySelectorAll('[data-required]').forEach(function (input) {
@@ -252,6 +282,9 @@
         nl.reset();
       }
 
+      if (submitBtn) submitBtn.disabled = true;
+      getSupabase().then(function (supabaseClient) {
+      if (submitBtn) submitBtn.disabled = false;
       // Fallback: ako Supabase nije podešen, samo prikaži poruku (kao ranije)
       if (!supabaseClient) {
         showSuccess();
@@ -284,6 +317,7 @@
             msg.style.opacity = '1';
           }
         });
+      });
     });
   });
 
