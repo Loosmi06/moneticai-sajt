@@ -68,7 +68,238 @@
 <meta name="theme-color" content="#08080B">
 <link rel="icon" href="assets/img/favicon.png" type="image/png">
 <script>document.documentElement.classList.add('js')</script>
+<link rel="preload" href="assets/img/logo-portal.webp" as="image" type="image/webp">
 <link rel="stylesheet" href="assets/css/style.css?v=20261006">
+<style>
+/* =========================================================
+   HERO UVODNA ŠPICA: "Portal" (petlja od 12s)
+   ========================================================= */
+.hero--portal{
+  --loop:12s;
+  min-height:100svh;
+  background:
+    radial-gradient(900px 560px at 74% 42%, rgba(255,87,51,.14), transparent 62%),
+    var(--bg);
+  isolation:isolate;
+}
+.hero--portal .hero__inner{ z-index:5; }
+.hero--portal h1{ text-shadow:0 6px 40px rgba(0,0,0,.7); }
+.hero--portal .hero__sub{ text-shadow:0 2px 16px rgba(0,0,0,.85); }
+
+/* ---------- pozadinska scena ---------- */
+.scene{ position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+
+.scene__beam{
+  position:absolute; top:-30%; width:38vw; height:150%;
+  background:linear-gradient(90deg, transparent, rgba(255,120,60,.09) 45%, rgba(255,150,90,.14) 50%, rgba(255,120,60,.09) 55%, transparent);
+  filter:blur(18px);
+  transform-origin:50% 0;
+  mix-blend-mode:screen;
+}
+.scene__beam--a{ left:48%; animation:beamA var(--loop) ease-in-out infinite; }
+.scene__beam--b{ left:62%; width:22vw; opacity:.7; animation:beamB calc(var(--loop) * 1.5) ease-in-out infinite; }
+@keyframes beamA{ 0%,100%{ transform:rotate(18deg); opacity:.55; } 50%{ transform:rotate(6deg); opacity:1; } }
+@keyframes beamB{ 0%,100%{ transform:rotate(-14deg); } 50%{ transform:rotate(-26deg); } }
+
+/* svetlosni tragovi koji jure ka portalu */
+.scene__streaks span{
+  position:absolute; left:0; top:var(--y);
+  width:var(--w); height:1.5px; border-radius:2px;
+  background:linear-gradient(90deg, transparent, rgba(255,87,51,.75), #FFC2A3);
+  box-shadow:0 0 10px rgba(255,87,51,.8);
+  opacity:0;
+  animation:streak var(--d) cubic-bezier(.55,0,.75,.4) infinite;
+  animation-delay:var(--delay);
+}
+@keyframes streak{
+  0%{ transform:translateX(-30vw); opacity:0; }
+  15%{ opacity:.55; }
+  80%{ opacity:.55; }
+  100%{ transform:translateX(72vw); opacity:0; }
+}
+
+.scene__embers{ position:absolute; inset:0; width:100%; height:100%; }
+
+/* perspektivni pod (kao mokri sto sa slike) */
+.scene__floor{
+  position:absolute; left:0; right:0; bottom:0; height:38%;
+  perspective:420px; perspective-origin:70% 0%;
+  overflow:hidden;
+  mask-image:linear-gradient(to bottom, transparent, #000 30%);
+  -webkit-mask-image:linear-gradient(to bottom, transparent, #000 30%);
+}
+.scene__plane{
+  position:absolute; left:-50%; right:-50%; top:0; height:260%;
+  transform-origin:50% 0; transform:rotateX(74deg);
+  background-image:
+    linear-gradient(rgba(255,87,51,.42) 1.5px, transparent 1.5px),
+    linear-gradient(90deg, rgba(255,87,51,.30) 1.5px, transparent 1.5px);
+  background-size:72px 72px;
+  animation:floorMove 1.8s linear infinite;
+}
+@keyframes floorMove{ to{ background-position:0 72px; } }
+.scene__horizon{
+  position:absolute; left:0; right:0; bottom:38%; height:2px;
+  background:linear-gradient(90deg, transparent 5%, rgba(255,87,51,.55) 40%, #FF9B6B 70%, rgba(255,87,51,.55) 88%, transparent);
+  box-shadow:0 0 30px 6px rgba(255,87,51,.35);
+  animation:horizon var(--loop) ease-in-out infinite;
+}
+@keyframes horizon{ 0%,100%{ opacity:.55; } 6%{ opacity:1; } 50%{ opacity:.7; } }
+
+.scene__vignette{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(90deg, rgba(8,8,11,.92) 0%, rgba(8,8,11,.55) 32%, transparent 58%),
+    linear-gradient(to bottom, rgba(8,8,11,.6), transparent 20%, transparent 82%, var(--bg));
+}
+
+/* ---------- portal (logo) ---------- */
+.portal{ align-items:center; }
+.portal__stage{
+  position:relative; width:min(100%, 520px); aspect-ratio:1;
+  display:grid; place-items:center;
+  container-type:inline-size;
+}
+.portal__halo{
+  position:absolute; inset:-14%; border-radius:50%;
+  background:radial-gradient(circle, rgba(255,87,51,.42), rgba(255,87,51,.08) 45%, transparent 66%);
+  filter:blur(20px);
+  animation:halo var(--loop) ease-in-out infinite;
+}
+@keyframes halo{
+  0%{ opacity:.35; transform:scale(.9); }
+  7%{ opacity:1; transform:scale(1.08); }
+  30%{ opacity:.7; transform:scale(1); }
+  50%{ opacity:.9; transform:scale(1.03); }
+  100%{ opacity:.35; transform:scale(.9); }
+}
+
+.portal .portal__logo{
+  position:relative; z-index:2;
+  width:86%; height:auto; max-width:none;
+  filter:none;
+  animation:logoIgnite var(--loop) cubic-bezier(.2,.7,.3,1) infinite;
+}
+@keyframes logoIgnite{
+  0%  { filter:brightness(.55) saturate(.8); transform:scale(.96); }
+  6%  { filter:brightness(1.35) saturate(1.2); transform:scale(1.025); }
+  14% { filter:brightness(1) saturate(1); transform:scale(1); }
+  50% { filter:brightness(1.08) saturate(1.05); transform:translateY(-8px) scale(1); }
+  90% { filter:brightness(1) saturate(1); transform:scale(1); }
+  100%{ filter:brightness(.55) saturate(.8); transform:scale(.96); }
+}
+
+/* udarni talas pri "paljenju" */
+.portal__shock{
+  position:absolute; z-index:1; inset:6%; border-radius:50%;
+  border:2px solid rgba(255,140,90,.9);
+  box-shadow:0 0 30px rgba(255,87,51,.8), inset 0 0 30px rgba(255,87,51,.5);
+  opacity:0;
+  animation:shock var(--loop) cubic-bezier(.1,.6,.3,1) infinite;
+}
+.portal__shock--late{ animation-delay:.35s; border-width:1px; }
+@keyframes shock{
+  0%{ transform:scale(.85); opacity:0; }
+  4%{ transform:scale(.95); opacity:1; }
+  30%{ transform:scale(1.9); opacity:0; }
+  100%{ transform:scale(1.9); opacity:0; }
+}
+
+/* lens flare preko sredine */
+.portal__flare{
+  position:absolute; z-index:3; left:-20%; right:-20%; top:50%; height:3px;
+  background:linear-gradient(90deg, transparent, rgba(255,140,90,.0) 10%, rgba(255,190,150,.95) 50%, rgba(255,140,90,0) 90%, transparent);
+  filter:blur(1px);
+  box-shadow:0 0 24px 4px rgba(255,87,51,.6);
+  transform:scaleX(0); opacity:0;
+  animation:flare var(--loop) ease-out infinite;
+}
+@keyframes flare{
+  0%,3%{ transform:scaleX(0); opacity:0; }
+  7%{ transform:scaleX(1); opacity:1; }
+  16%,100%{ transform:scaleX(1.2); opacity:0; }
+}
+
+/* HUD prstenovi */
+.portal__rings{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; z-index:1; }
+.portal__rings circle{ fill:none; transform-box:view-box; transform-origin:50% 50%; }
+.portal__ticks{ stroke:rgba(255,255,255,.22); stroke-width:6; stroke-dasharray:.6 4.4; animation:spin 60s linear infinite; }
+.portal__dash{ stroke:rgba(255,87,51,.45); stroke-width:1.2; stroke-dasharray:70 14 6 14; animation:spin 30s linear infinite reverse; }
+.portal__arc{
+  stroke:#FF6A3D; stroke-width:2.5; stroke-linecap:round;
+  stroke-dasharray:14 86; filter:drop-shadow(0 0 6px #FF5733);
+  animation:spin 6s linear infinite;
+}
+.portal__arc--b{ stroke:#FFD2BC; stroke-dasharray:4 96; animation-duration:4s; animation-direction:reverse; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+.portal__radar{
+  position:absolute; z-index:1; inset:5%; border-radius:50%;
+  background:conic-gradient(from 0deg, transparent 0 78%, rgba(255,87,51,.22) 97%, rgba(255,170,130,.5) 100%);
+  -webkit-mask:radial-gradient(farthest-side, transparent 82%, #000 84%, #000 100%);
+          mask:radial-gradient(farthest-side, transparent 82%, #000 84%, #000 100%);
+  animation:spin 6s linear infinite;
+}
+
+/* orbita sa AI alatima */
+.portal__orbit{
+  position:absolute; inset:0; z-index:4;
+  animation:spin 36s linear infinite;
+}
+.portal__chip{
+  position:absolute; left:50%; top:50%;
+  transform:rotate(var(--a)) translateX(50cqw) rotate(calc(var(--a) * -1));
+}
+.portal__chip i{
+  display:block; font-style:normal;
+  transform:translate(-50%,-50%);
+  padding:7px 13px; border-radius:100px;
+  font-size:12.5px; font-weight:600; letter-spacing:.01em; white-space:nowrap;
+  color:var(--text);
+  background:rgba(14,14,20,.78); border:1px solid rgba(255,87,51,.35);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  box-shadow:0 6px 18px rgba(0,0,0,.5), 0 0 14px rgba(255,87,51,.15);
+  animation:counter 36s linear infinite;
+}
+@keyframes counter{ from{ transform:translate(-50%,-50%) rotate(0deg); } to{ transform:translate(-50%,-50%) rotate(-360deg); } }
+
+/* refleksija na podu */
+.portal .portal__reflection{
+  animation:none;
+  position:absolute; left:50%; top:calc(100% - 4%);
+  width:min(64%, 330px); height:auto;
+  transform:translateX(-50%) scaleY(-.55);
+  transform-origin:50% 0;
+  opacity:.2; filter:blur(8px);
+  mask-image:linear-gradient(to top, #000, transparent 70%);
+  -webkit-mask-image:linear-gradient(to top, #000, transparent 70%);
+  z-index:0;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:960px){
+  .scene__vignette{
+    background:
+      radial-gradient(ellipse 90% 45% at 50% 70%, rgba(8,8,11,.75), transparent 80%),
+      linear-gradient(to bottom, rgba(8,8,11,.5), transparent 20%, transparent 82%, var(--bg));
+  }
+  .scene__floor{ perspective-origin:50% 0%; height:30%; }
+  .scene__horizon{ bottom:30%; }
+  .scene__beam--a{ left:30%; width:60vw; }
+  .portal__stage{ width:min(74vw, 340px); }
+  .portal__chip i{ font-size:11px; padding:5px 10px; }
+  .portal .portal__reflection{ display:none; }
+  .portal .portal__logo{ width:86%; }
+}
+@media (max-width:420px){
+  .portal__chip:nth-child(even){ display:none; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .scene *, .portal *{ animation:none !important; }
+  .scene__streaks{ display:none; }
+}
+</style>
 </head>
 <body>
 
@@ -111,8 +342,28 @@
 
 <main>
 
-<!-- ============ HERO ============ -->
-<section class="hero grid-bg">
+<!-- ============ HERO (uvodna špica: portal) ============ -->
+<section class="hero hero--portal">
+  <!-- Motion pozadina: petlja od 12s, vrti se bez prekida -->
+  <div class="scene" aria-hidden="true">
+    <div class="scene__beam scene__beam--a"></div>
+    <div class="scene__beam scene__beam--b"></div>
+    <div class="scene__streaks">
+      <span style="--y:18%;--d:4.2s;--w:180px;--delay:-.4s"></span>
+      <span style="--y:31%;--d:5.6s;--w:120px;--delay:-2.1s"></span>
+      <span style="--y:44%;--d:3.8s;--w:240px;--delay:-1.2s"></span>
+      <span style="--y:57%;--d:6.2s;--w:140px;--delay:-3.5s"></span>
+      <span style="--y:66%;--d:4.8s;--w:200px;--delay:-.9s"></span>
+      <span style="--y:24%;--d:7s;--w:90px;--delay:-4.6s"></span>
+      <span style="--y:50%;--d:5.1s;--w:160px;--delay:-2.8s"></span>
+    </div>
+    <canvas class="scene__embers"></canvas>
+    <div class="scene__floor"><div class="scene__plane"></div></div>
+    <div class="scene__horizon"></div>
+    <div class="scene__vignette"></div>
+  </div>
+
+
   <div class="container hero__inner">
     <div class="hero__text">
       <span class="eyebrow">AI edukacija na srpskom</span>
@@ -146,12 +397,33 @@
       </div>
     </div>
 
-    <div class="hero__visual">
-      <div class="hero__ring"></div>
-      <img width="1042" height="1008" src="assets/img/robot-hero1.webp" srcset="assets/img/robot-hero1-80w.webp 80w, assets/img/robot-hero1-160w.webp 160w, assets/img/robot-hero1-240w.webp 240w, assets/img/robot-hero1-320w.webp 320w, assets/img/robot-hero1-480w.webp 480w, assets/img/robot-hero1-640w.webp 640w, assets/img/robot-hero1-800w.webp 800w, assets/img/robot-hero1.webp 1042w" sizes="(max-width: 600px) 272px, (max-width: 960px) 330px, 480px" alt="moneticai robot maskota" fetchpriority="high">
-      <div class="chip-float chip-float--1"><b>+</b> Promptovi koji rade</div>
-      <div class="chip-float chip-float--2"><b>AI</b> alati testirani</div>
-      <div class="chip-float chip-float--3"><b>€</b> Modeli zarade</div>
+    <div class="hero__visual portal" aria-hidden="true">
+      <div class="portal__stage">
+        <div class="portal__halo"></div>
+        <div class="portal__shock"></div>
+        <div class="portal__shock portal__shock--late"></div>
+
+        <svg class="portal__rings" viewBox="0 0 400 400">
+          <circle class="portal__ticks" cx="200" cy="200" r="197" pathLength="360"/>
+          <circle class="portal__dash"  cx="200" cy="200" r="188"/>
+          <circle class="portal__arc"   cx="200" cy="200" r="179" pathLength="100"/>
+          <circle class="portal__arc portal__arc--b" cx="200" cy="200" r="179" pathLength="100"/>
+        </svg>
+        <div class="portal__radar"></div>
+
+        <img class="portal__logo" src="assets/img/logo-portal.webp" srcset="assets/img/logo-portal-380w.webp 380w, assets/img/logo-portal.webp 760w" sizes="(max-width: 960px) 300px, 440px" width="760" height="760" alt="" fetchpriority="high">
+        <div class="portal__flare"></div>
+
+        <div class="portal__orbit">
+          <span class="portal__chip" style="--a:0deg"><i>ChatGPT</i></span>
+          <span class="portal__chip" style="--a:60deg"><i>Claude</i></span>
+          <span class="portal__chip" style="--a:120deg"><i>Gemini</i></span>
+          <span class="portal__chip" style="--a:180deg"><i>Midjourney</i></span>
+          <span class="portal__chip" style="--a:240deg"><i>ElevenLabs</i></span>
+          <span class="portal__chip" style="--a:300deg"><i>Canva AI</i></span>
+        </div>
+      </div>
+      <img class="portal__reflection" src="assets/img/logo-portal-380w.webp" width="380" height="380" alt="" loading="lazy">
     </div>
   </div>
 </section>
@@ -474,5 +746,49 @@
 </footer>
 
 <script src="assets/js/main.js?v=20261006"></script>
+<script>
+/* Uvodna špica: žar čestice (canvas) */
+(function () {
+  var hero = document.querySelector('.hero--portal');
+  var cv = hero && hero.querySelector('.scene__embers');
+  if (!cv || !cv.getContext) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var ctx = cv.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var w = 0, h = 0, parts = [], visible = true, raf = 0, running = false;
+  function make(any) {
+    return { x: w * (.35 + Math.random() * .65), y: any ? Math.random() * h : h + 10,
+      r: Math.random() * 1.7 + .4, vy: Math.random() * .5 + .15, sw: Math.random() * 1.2 + .3,
+      ph: Math.random() * 6.28, a: Math.random() * .6 + .25 };
+  }
+  function size() {
+    var r = hero.getBoundingClientRect(); w = r.width; h = r.height;
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.round(Math.min(64, Math.max(24, w / 24))); parts = [];
+    for (var i = 0; i < n; i++) parts.push(make(true));
+  }
+  function tick() {
+    ctx.clearRect(0, 0, w, h);
+    ctx.shadowColor = 'rgba(255,87,51,.9)'; ctx.shadowBlur = 8;
+    for (var i = 0; i < parts.length; i++) {
+      var p = parts[i]; p.y -= p.vy; p.ph += .012;
+      if (p.y < -10) { parts[i] = make(false); continue; }
+      var life = Math.min(1, p.y / (h * .35));
+      ctx.beginPath(); ctx.arc(p.x + Math.sin(p.ph) * p.sw * 6, p.y, p.r, 0, 6.283);
+      ctx.fillStyle = 'rgba(255,' + (110 + Math.round(p.r * 30)) + ',60,' + (p.a * life).toFixed(3) + ')';
+      ctx.fill();
+    }
+    raf = requestAnimationFrame(tick);
+  }
+  function sync() {
+    var on = visible && !document.hidden;
+    if (on && !running) { running = true; raf = requestAnimationFrame(tick); }
+    if (!on && running) { running = false; cancelAnimationFrame(raf); }
+  }
+  size(); window.addEventListener('resize', size);
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (e) { visible = e[0].isIntersecting; sync(); }).observe(hero);
+  document.addEventListener('visibilitychange', sync); sync();
+})();
+</script>
 </body>
 </html>
