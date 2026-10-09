@@ -131,7 +131,7 @@
         <span>Besplatan kurs</span>
       </nav>
 
-      <span class="eyebrow">Besplatan kurs · PDF na srpskom · 0 RSD</span>
+      <span class="eyebrow">Besplatan kurs · PDF · 0 RSD</span>
       <h1>7 dana do <span class="grad">prvog AI projekta</span></h1>
 
       <p class="lead" style="margin-top:14px;">
@@ -153,7 +153,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/></svg>
       </button>
     
-          <label class="consent"><input type="checkbox" required> <span>Slažem se da mi monetic<span class="ai-o">ai</span> šalje mejlove sa besplatnim materijalima i novostima. Odjava je moguća u svakom trenutku. Više u <a href="/politika-privatnosti">Politici privatnosti</a>.</span></label>
+          <p class="consent-note" style="flex-basis:100%; margin:2px 0 0; opacity:.8;">Uz kurs povremeno šaljemo i korisne AI savete. Odjava jednim klikom. <a href="/politika-privatnosti">Politika privatnosti</a></p>
         </form>
       <p data-newsletter-msg style="opacity:0; transition:opacity .3s; margin-top:12px; font-size:14.5px; color:var(--text);"></p>
 
@@ -478,7 +478,7 @@
             <input type="hidden" name="anticsrf" value="true">
             <button type="submit" class="btn btn--light">Pošalji mi besplatan kurs</button>
         
-          <label class="consent"><input type="checkbox" required> <span>Slažem se da mi monetic<span class="ai-o">ai</span> šalje mejlove sa besplatnim materijalima i novostima. Odjava je moguća u svakom trenutku. Više u <a href="/politika-privatnosti">Politici privatnosti</a>.</span></label>
+          <p class="consent-note" style="flex-basis:100%; margin:2px 0 0; opacity:.8;">Uz kurs povremeno šaljemo i korisne AI savete. Odjava jednim klikom. <a href="/politika-privatnosti">Politika privatnosti</a></p>
         </form>
         <p data-newsletter-msg style="opacity:0; transition:opacity .3s; margin-top:12px; font-size:14px;"></p>
       </div>
@@ -525,7 +525,7 @@
           <input type="email" placeholder="tvoj@email.com" aria-label="Email adresa" required style="background:rgba(255,255,255,.05); border-color:var(--line); color:var(--text);">
           <button type="submit" class="btn btn--primary btn--sm">Prijavi se</button>
         
-          <label class="consent"><input type="checkbox" required> <span>Slažem se da mi monetic<span class="ai-o">ai</span> šalje mejlove sa besplatnim materijalima i novostima. Odjava je moguća u svakom trenutku. Više u <a href="/politika-privatnosti">Politici privatnosti</a>.</span></label>
+          <p class="consent-note" style="flex-basis:100%; margin:2px 0 0; opacity:.8;">Uz kurs povremeno šaljemo i korisne AI savete. Odjava jednim klikom. <a href="/politika-privatnosti">Politika privatnosti</a></p>
         </form>
         <p data-newsletter-msg style="opacity:0; transition:opacity .3s; margin-top:10px; font-size:13px;"></p>
       </div>
@@ -574,6 +574,8 @@
     bar.querySelector('a').tabIndex = on ? 0 : -1;
   }, { rootMargin: '0px 0px -10% 0px' });
   forms.forEach(function(f){ io.observe(f); });
+  var hero = document.getElementById('preuzmi');
+  if (hero) io.observe(hero);
   var footer = document.querySelector('.footer');
   if (footer) io.observe(footer);
 })();
