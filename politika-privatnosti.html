@@ -119,7 +119,7 @@
 <section class="section">
   <div class="container">
     <article class="legal">
-      <p class="legal__meta">Poslednja izmena: 27.09.2026.</p>
+      <p class="legal__meta">Poslednja izmena: 11.10.2026.</p>
 
       <h2>1. Ko obrađuje tvoje podatke</h2>
       <p>
@@ -137,6 +137,7 @@
         <li><b>Ime, email, tema i tekst poruke</b>, kada nam pišeš preko kontakt forme.</li>
         <li><b>Tehnički podaci</b> (IP adresa, tip pregledača, vreme posete) koje automatski beleži Cloudflare, servis na kom je sajt smešten, radi bezbednosti i ispravnog rada.</li>
         <li><b>Anonimna statistika poseta</b>: koje stranice su posećene, sa kog uređaja i iz koje zemlje, bez kolačića i bez praćenja pojedinačnih posetilaca.</li>
+        <li><b>Podaci o poseti za merenje reklama</b> (Meta Pixel), samo ako to odobriš na baneru za kolačiće: koje stranice si posetio na sajtu, da li si se prijavio na neki materijal, tip uređaja i pregledača, IP adresa i identifikator kolačića.</li>
       </ul>
       <p>Ne prikupljamo podatke o plaćanju, jer trenutno ništa ne prodajemo.</p>
 
@@ -145,6 +146,7 @@
         <li><b>Slanje besplatnih materijala i newslettera</b>: na osnovu tvog pristanka, koji daješ označavanjem polja uz formu. Pristanak možeš da povučeš u svakom trenutku, klikom na „odjavi se" u bilo kom mejlu ili pisanjem na naš email.</li>
         <li><b>Odgovor na tvoju poruku</b>: jer si sam zatražio kontakt. Podatke iz poruke koristimo samo da bismo ti odgovorili.</li>
         <li><b>Tehnički podaci i statistika poseta</b>: na osnovu legitimnog interesa da sajt radi bezbedno i da vidimo koji sadržaj je koristan.</li>
+        <li><b>Merenje i prikazivanje reklama na Instagramu i Facebooku</b> (Meta Pixel): isključivo na osnovu tvog pristanka. Pristanak možeš da povučeš u svakom trenutku preko linka „Kolačići" u dnu svake stranice.</li>
       </ul>
       <p>Tvoje podatke ne prodajemo, ne iznajmljujemo i ne koristimo za automatizovano donošenje odluka.</p>
 
@@ -154,6 +156,7 @@
         <li><b>MailerLite</b> (UAB MailerLite, Litvanija, EU): slanje mejlova i besplatnih materijala.</li>
         <li><b>Supabase</b> (Supabase Inc.): baza u kojoj se čuvaju poruke sa kontakt forme i prijave na newsletter. Podaci se čuvaju na serverima u Evropskoj uniji.</li>
         <li><b>Cloudflare</b> (Cloudflare Inc., SAD): hosting, zaštita sajta od napada i anonimna statistika poseta (Cloudflare Web Analytics). Beleži tehničke podatke iz tačke 2, kao što je IP adresa.</li>
+        <li><b>Meta</b> (Meta Platforms Ireland Ltd., Irska, EU): samo ako prihvatiš kolačiće za reklame. Meta Pixel joj šalje podatke o poseti sajtu kako bismo merili uspeh reklama na Instagramu i Facebooku i prikazivali ih ljudima kojima su korisne. Meta te podatke obrađuje i u skladu sa svojom <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">politikom privatnosti</a>.</li>
       </ul>
       <p>
         Podatke sa formi čuvamo na serverima u Evropskoj uniji. Supabase i Cloudflare su kompanije
@@ -188,12 +191,21 @@
 
       <h2 id="kolacici">7. Kolačići (cookies)</h2>
       <p>
-        Sajt <b>ne koristi kolačiće za praćenje, analitiku ni reklame</b>. Za statistiku poseta koristimo Cloudflare Web Analytics, koji ne postavlja kolačiće, ne čuva
+        Za statistiku poseta koristimo Cloudflare Web Analytics, koji ne postavlja kolačiće, ne čuva
         podatke u tvom pregledaču i ne prati te na drugim sajtovima. Fontovi, slike i kod učitavaju se
         sa našeg sajta. Cloudflare u nekim slučajevima postavlja tehnički kolačić koji služi samo da
         zaštiti sajt od automatizovanih napada (botova). Takav kolačić je neophodan za rad sajta, ne
-        prati te i za njega nije potreban pristanak. Ako u budućnosti uvedemo alate koji koriste kolačiće za praćenje ili reklame, prvo ćemo
-        tražiti tvoju saglasnost i ažurirati ovu stranicu.
+        prati te i za njega nije potreban pristanak.
+      </p>
+      <p>
+        <b>Kolačići za reklame (Meta Pixel)</b> uključuju se samo ako klikneš „Prihvatam" na baneru
+        koji se pojavi pri prvoj poseti. Tada Meta postavlja kolačiće <code>_fbp</code> (i <code>_fbc</code> ako
+        si na sajt došao preko reklame), koji traju do 90 dana. Ako klikneš „Odbij", Pixel se ne
+        učitava i sajt radi potpuno isto. Tvoj izbor pamtimo u pregledaču, pa te ne pitamo ponovo.
+      </p>
+      <p>
+        Odluku možeš da promeniš u svakom trenutku: <a href="#kolacici" data-cookie-settings>otvori podešavanje kolačića</a>
+        (isti link „Kolačići" nalazi se u dnu svake stranice).
       </p>
 
       <h2>8. Maloletna lica</h2>
@@ -261,11 +273,12 @@
     <div class="footer__bottom">
       <span>© <span data-year>2026</span> monetic<span class="ai-o">ai</span>. Sva prava zadržana.</span>
       <span>Neki linkovi ka alatima su <a href="/uslovi-koriscenja#affiliate" style="color:inherit;text-decoration:underline;">affiliate linkovi</a>, cena za tebe ostaje ista.</span>
-      <span class="footer__legal"><a href="/politika-privatnosti">Politika privatnosti</a> · <a href="/uslovi-koriscenja">Uslovi korišćenja</a></span>
+      <span class="footer__legal"><a href="/politika-privatnosti">Politika privatnosti</a> · <a href="/uslovi-koriscenja">Uslovi korišćenja</a> · <a href="/politika-privatnosti#kolacici" data-cookie-settings>Kolačići</a></span>
     </div>
   </div>
 </footer>
 
-<script src="assets/js/main.js?v=20261006"></script>
+<script src="assets/js/pixel.js?v=20261011"></script>
+<script src="assets/js/main.js?v=20261011"></script>
 </body>
 </html>

@@ -202,6 +202,7 @@
           ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
         form.reset();
+        if (window.maiTrack) window.maiTrack('Contact', { content_name: tema });
       }
 
       if (submitBtn) submitBtn.disabled = true;
@@ -280,6 +281,7 @@
           msg.style.opacity = '1';
         }
         nl.reset();
+        if (window.maiTrack) window.maiTrack('Lead', { content_name: 'Newsletter' });
       }
 
       if (submitBtn) submitBtn.disabled = true;
@@ -367,6 +369,9 @@
           msg.textContent = 'Uspešno si se prijavio. ' + leadMagnet + ' upravo stiže na tvoj email 📩\n\nNe vidiš ga za par minuta? Proveri spam ili promocije folder, ponekad tu zna da se sakrije.';
           msg.style.color = '#fff';
           msg.style.opacity = '1';
+        }
+        if (window.maiTrack) {
+          window.maiTrack('Lead', { content_name: nl.getAttribute('data-lead-magnet') || document.title });
         }
         setTimeout(function () { nl.reset(); }, 50);
       });
