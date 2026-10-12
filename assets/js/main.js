@@ -255,7 +255,37 @@
     });
   }
 
-  /* ---------- 7. Newsletter forme ("Ostani u toku") — čuva email u Supabase tabeli "mailovi" ---------- */
+  /* ---------- 7. Newsletter forme ("Ostani u toku") ----------
+     Email ide na dva mesta:
+     1) MailerLite, grupa "Svi pretplatnici" (forma "Futer sajta"),
+        šalje se kao pravo slanje forme u skriveni iframe (vidi 7b zašto ne fetch)
+     2) Supabase tabela "mailovi", kao rezervna kopija */
+  var ML_FOOTER_ACTION = 'https://assets.mailerlite.com/jsonp/2517581/forms/201134071185671914/subscribe';
+  function sendFooterToMailerLite(email) {
+    try {
+      var frameName = 'ml-footer-frame';
+      if (!document.getElementsByName(frameName).length) {
+        var fr = document.createElement('iframe');
+        fr.name = frameName;
+        fr.style.display = 'none';
+        fr.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(fr);
+      }
+      var f = document.createElement('form');
+      f.method = 'post';
+      f.action = ML_FOOTER_ACTION;
+      f.target = frameName;
+      f.style.display = 'none';
+      [['fields[email]', email], ['ml-submit', '1'], ['anticsrf', 'true']].forEach(function (pair) {
+        var i = document.createElement('input');
+        i.type = 'hidden'; i.name = pair[0]; i.value = pair[1];
+        f.appendChild(i);
+      });
+      document.body.appendChild(f);
+      f.submit();
+      setTimeout(function () { if (f.parentNode) f.parentNode.removeChild(f); }, 3000);
+    } catch (err) {}
+  }
   document.querySelectorAll('[data-newsletter]').forEach(function (nl) {
     nl.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -276,13 +306,15 @@
 
       function showSuccess() {
         if (msg) {
-          msg.textContent = 'Hvala! Proveri inbox — vodič stiže na ' + value + '.';
+          msg.textContent = 'Hvala, prijavljen si! Javljamo ti se sa najvažnijim AI novostima i korisnim promptovima.';
           msg.style.color = '#fff';
           msg.style.opacity = '1';
         }
         nl.reset();
         if (window.maiTrack) window.maiTrack('Lead', { content_name: 'Newsletter' });
       }
+
+      sendFooterToMailerLite(value);
 
       if (submitBtn) submitBtn.disabled = true;
       getSupabase().then(function (supabaseClient) {
