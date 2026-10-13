@@ -77,8 +77,8 @@
 /* =========================================================
    POČETNA: motion redizajn (test verzija)
    Ideja: ceo sajt nastavlja "portal" špicu iz hero dela.
-   Prsten iz logoa se vraća kroz stranicu kao znak napretka:
-   4 koraka, 7 dana kursa. Svaka animacija nešto pokazuje.
+   Prsten iz logoa se vraća kod prijave na kurs (7 dana).
+   Svaka animacija nešto pokazuje.
    Petlje se pauziraju kad sekcija nije na ekranu (is-live),
    a "prefers-reduced-motion" gasi sve pokrete.
    ========================================================= */
@@ -362,7 +362,7 @@ html.js .hero__visual{ animation:portalIn 1.6s var(--ease-out) .05s backwards; }
    ========================================================= */
 .ticker{
   position:relative; overflow:hidden;
-  padding:clamp(18px,2.4vw,28px) 0;
+  padding:clamp(10px,1.2vw,14px) 0;
   background:var(--bg-2);
   border-block:1px solid var(--line);
   -webkit-mask-image:linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
@@ -371,14 +371,14 @@ html.js .hero__visual{ animation:portalIn 1.6s var(--ease-out) .05s backwards; }
 .ticker__track{ display:flex; width:max-content; animation:tick 42s linear infinite; }
 .ticker__track span{
   display:inline-flex; align-items:center; flex:none;
-  gap:clamp(20px,2.6vw,36px); padding-right:clamp(20px,2.6vw,36px);
-  font-size:clamp(26px,4vw,52px); font-weight:700; letter-spacing:-.035em; line-height:1.15;
+  gap:clamp(12px,1.4vw,20px); padding-right:clamp(12px,1.4vw,20px);
+  font-size:clamp(13px,1.8vw,24px); font-weight:700; letter-spacing:-.02em; line-height:1.15;
   white-space:nowrap; color:var(--text);
 }
-.ticker__track span:nth-child(even){ color:transparent; -webkit-text-stroke:1.2px rgba(244,244,247,.5); }
+.ticker__track span:nth-child(even){ color:transparent; -webkit-text-stroke:1px rgba(244,244,247,.62); }
 .ticker__track span::after{
   content:''; flex:none; width:.24em; height:.24em; border-radius:2px;
-  background:var(--brand); transform:rotate(45deg); box-shadow:0 0 12px var(--brand);
+  background:var(--brand); transform:rotate(45deg); box-shadow:0 0 8px var(--brand);
 }
 @keyframes tick{ to{ transform:translateX(-50%); } }
 @supports (animation-timeline: view()){
@@ -563,91 +563,6 @@ html.js .bento__cell.is-in::after{ animation:sweep 1.4s var(--ease-out) .15s bot
 .signal__text .noise{ color:var(--brand); opacity:.8; }
 
 /* =========================================================
-   ČETIRI KORAKA: maskota odglumi svaki korak
-   ========================================================= */
-.story{ position:relative; }
-.story::before{
-  content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
-  background:radial-gradient(60% 50% at 78% 45%, rgba(255,87,51,.10), transparent 70%);
-}
-.story__grid{ display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:clamp(30px,5vw,72px); }
-.story__text{ padding-bottom:28vh; }
-.story__track{ position:relative; margin-top:clamp(18px,3vw,36px); }
-.story__track::before, .story__fill{
-  content:''; position:absolute; left:21px; top:calc(clamp(28px,7vh,64px) + 10px); bottom:calc(clamp(28px,7vh,64px) + 10px);
-  width:2px; margin-left:-1px; border-radius:2px; background:var(--line-strong);
-}
-.story__fill{
-  background:linear-gradient(var(--brand-2), var(--brand));
-  box-shadow:0 0 12px var(--glow);
-  transform-origin:top; transform:scaleY(var(--p, 0));
-  transition:transform .7s var(--ease-out);
-}
-@supports (animation-timeline: view()){
-  .story__fill{ transition:none; animation:fillDown linear both; animation-timeline:view(); animation-range:cover 50vh cover calc(100% - 50vh); }
-}
-@keyframes fillDown{ from{ transform:scaleY(0); } to{ transform:scaleY(1); } }
-.story__steps{ list-style:none; margin:0; padding:0; }
-.story__step{
-  position:relative; display:grid; grid-template-columns:44px minmax(0,1fr); gap:22px;
-  padding:clamp(28px,7vh,64px) 0;
-  transition:opacity .5s;
-}
-html.js .story__step{ opacity:.4; }
-html.js .story__step.is-active{ opacity:1; }
-.story__num{
-  position:relative; z-index:1; width:44px; height:44px; border-radius:14px;
-  display:grid; place-items:center; font-weight:700; font-size:15px;
-  color:var(--text-muted); background:var(--bg); border:1px solid var(--line-strong);
-  transition:background .4s, color .4s, border-color .4s, box-shadow .4s, transform .5s var(--ease-back);
-}
-.story__step.is-active .story__num{
-  color:#fff; border-color:transparent; transform:scale(1.06);
-  background:linear-gradient(140deg, var(--brand-2), var(--brand));
-  box-shadow:0 0 0 6px rgba(255,87,51,.12), 0 10px 26px rgba(255,87,51,.35);
-}
-.story__step h3{ font-size:clamp(19px,2vw,24px); margin:8px 0 6px; }
-.story__step p{ color:var(--text-muted); max-width:46ch; }
-
-.story__stage-col{ position:relative; }
-.story__stage{
-  position:sticky; top:calc(var(--nav-h) + 3vh);
-  height:calc(100svh - var(--nav-h) - 6vh); max-height:720px;
-  display:grid; place-items:center;
-}
-.stage{ position:relative; width:min(100%, 500px); aspect-ratio:1 / 1.1; }
-.stage__halo{
-  position:absolute; inset:6% 4% 20%; border-radius:50%;
-  background:radial-gradient(circle, rgba(255,87,51,.34), rgba(255,87,51,.07) 50%, transparent 70%);
-  filter:blur(24px);
-}
-.stage__ring{ position:absolute; left:6%; right:6%; top:2%; aspect-ratio:1; overflow:visible; rotate:-90deg; }
-.stage__ring circle{ fill:none; transform-box:view-box; transform-origin:50% 50%; }
-.stage__ticks{ stroke:rgba(255,255,255,.16); stroke-width:5; stroke-dasharray:.6 4.4; animation:spin 70s linear infinite; }
-.stage__arc{ stroke:rgba(255,255,255,.1); stroke-width:3.5; stroke-linecap:round; transition:stroke .5s, filter .5s; }
-.story[data-step="1"] .stage__arc:nth-of-type(-n+2),
-.story[data-step="2"] .stage__arc:nth-of-type(-n+3),
-.story[data-step="3"] .stage__arc:nth-of-type(-n+4),
-.story[data-step="4"] .stage__arc{ stroke:#FF6A3D; filter:drop-shadow(0 0 6px #FF5733); }
-.stage__floor{
-  position:absolute; left:16%; right:16%; bottom:3%; height:12%; border-radius:50%;
-  background:radial-gradient(ellipse at center, rgba(255,87,51,.4), transparent 70%);
-  filter:blur(10px);
-}
-.stage__pose{
-  position:absolute; left:50%; bottom:5%;
-  height:var(--h, 80%); width:auto; max-width:none;
-  opacity:0; transform:translate(-50%, 26px) scale(.94);
-  transition:opacity .55s var(--ease-out), transform .9s var(--ease-out);
-  -webkit-mask-image:linear-gradient(to bottom, #000 76%, transparent 99%);
-          mask-image:linear-gradient(to bottom, #000 76%, transparent 99%);
-}
-.story[data-step="1"] .stage__pose[data-pose="1"],
-.story[data-step="2"] .stage__pose[data-pose="2"],
-.story[data-step="3"] .stage__pose[data-pose="3"],
-.story[data-step="4"] .stage__pose[data-pose="4"]{ opacity:1; transform:translate(-50%, 0) scale(1); }
-
-/* =========================================================
    IZ SHOPA: knjige padaju na policu
    ========================================================= */
 .shelf__grid{ display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:18px; }
@@ -797,7 +712,7 @@ html.js .cta-x.is-in .ring7__draw{ stroke-dashoffset:0; }
 .faq__item.is-open .faq__q i{ transform:rotate(180deg); }
 
 /* =========================================================
-   FUTER: horizont na vrhu i veliki logotip koji se puni
+   FUTER: horizont na vrhu
    ========================================================= */
 .footer{ border-top:0; }
 .footer::before{
@@ -806,27 +721,6 @@ html.js .cta-x.is-in .ring7__draw{ stroke-dashoffset:0; }
   box-shadow:0 0 24px 3px rgba(255,87,51,.25);
 }
 .footer__legal{ display:inline-flex; flex-wrap:wrap; gap:6px 16px; }
-.wordmark{
-  display:flex; justify-content:center; margin-top:clamp(26px,4vw,44px);
-  font-weight:700; font-size:clamp(64px,18vw,270px); line-height:.86; letter-spacing:-.065em;
-  white-space:nowrap; user-select:none; padding-bottom:.06em;
-}
-.wordmark span{
-  display:inline-block; line-height:1; padding:.06em .1em 0 0; margin-right:-.1em;
-  color:transparent; -webkit-text-stroke:1px rgba(244,244,247,.18);
-  background-image:linear-gradient(to top, rgba(244,244,247,.92) 50%, transparent 50%);
-  background-size:100% 200%; background-position:0 0;
-  -webkit-background-clip:text; background-clip:text;
-}
-.wordmark .ai{ -webkit-text-stroke-color:rgba(255,87,51,.55); background-image:linear-gradient(to top, #FF5733 50%, transparent 50%); }
-html.js .wordmark.reveal{ opacity:1; transform:none; }
-html.js .wordmark span{ transition:background-position 1.8s var(--ease-out); }
-html.js .wordmark.is-in span{ background-position:0 100%; }
-@supports (animation-timeline: view()){
-  html.js .wordmark span{ transition:none; animation:fillUp linear both; animation-timeline:view(); animation-range:entry 0% entry 100%; }
-}
-@keyframes fillUp{ from{ background-position:0 0; } to{ background-position:0 100%; } }
-
 /* =========================================================
    PAUZA: petlje stoje dok sekcija nije na ekranu
    ========================================================= */
@@ -853,25 +747,6 @@ html.js [data-live]:not(.is-live) *::after{ animation-play-state:paused !importa
   .portal__chip i{ font-size:11px; padding:5px 10px; }
   .portal .portal__reflection{ display:none; }
   .portal .portal__logo{ width:86%; }
-
-  /* koraci: scena se lepi na vrh, koraci prolaze ispod */
-  .story__grid{ grid-template-columns:1fr; gap:0; }
-  .story__text{ display:contents; }
-  .story__text > .section-title{ order:1; }
-  .story__text > .lead{ order:2; }
-  .story__stage-col{
-    order:3; position:sticky; top:var(--nav-h); z-index:3;
-    margin-inline:calc(50% - 50vw); padding:8px calc(50vw - 50%) 26px;
-    background:linear-gradient(var(--bg) 80%, rgba(8,8,11,0));
-  }
-  .story__stage{ position:relative; top:auto; height:auto; max-height:none; }
-  .stage{ width:min(64vw, 270px); aspect-ratio:1 / 1.02; margin-inline:auto; }
-  .story__grid{ padding-bottom:8vh; }
-  .story__track{ order:4; margin-top:0; }
-  .story__step{ min-height:46svh; align-content:center; }
-  @supports (animation-timeline: view()){
-    .story__fill{ animation-range:cover 66vh cover calc(100% - 34vh); }
-  }
 
   .shelf__grid{ grid-template-columns:1fr; }
   .feat{ grid-row:auto; }
@@ -917,11 +792,11 @@ html.js [data-live]:not(.is-live) *::after{ animation-play-state:paused !importa
   .scene *, .portal *{ animation:none !important; }
   .scene__streaks{ display:none; }
   .progress{ display:none !important; }
-  .hero__inner, .ticker__drift, .story__fill, .wordmark span{ animation:none !important; }
+  .hero__inner, .ticker__drift{ animation:none !important; }
   html.js .hero__title .w > span, html.js .hero .eyebrow, html.js .hero__sub,
   html.js .hero__actions, html.js .hero__stats, html.js .hero__visual{ animation:none !important; }
   html.js .kin .w > span{ transform:none !important; transition:none !important; }
-  .ticker__track, .codes__caret, .radar i, .stage__ticks, .ring7__cover,
+  .ticker__track, .codes__caret, .radar i, .ring7__cover,
   .btn--shine::after, .bento__cell::after, .checks li, .checks i, .checks i::after, .ring7__node{ animation:none !important; }
   .checks li{ color:var(--text); }
   .checks i{ background:var(--brand); border-color:var(--brand); }
@@ -929,13 +804,11 @@ html.js [data-live]:not(.is-live) *::after{ animation-play-state:paused !importa
   .ring7__node{ background:var(--brand); border-color:var(--brand); color:#fff; }
   html.js .bento__cell.reveal, html.js .wire__item > *, html.js .wire__item::before, html.js .wire .wire__line,
   html.js .shelf .drop, html.js .shelf .feat__body, html.js .shelf .mini__body, html.js .ring7__draw,
-  .story__step, .story__num, .stage__pose, .days__fill, .days__node, .story__fill{ transition:none !important; }
+  .days__fill, .days__node{ transition:none !important; }
   html.js .bento__cell.reveal, html.js .wire__item > *, html.js .shelf .drop,
   html.js .shelf .feat__body, html.js .shelf .mini__body{ opacity:1 !important; transform:none !important; }
   html.js .wire .wire__line, html.js .wire__item::before{ transform:none !important; }
   html.js .ring7__draw{ stroke-dashoffset:0 !important; }
-  html.js .story__step{ opacity:1; }
-  html.js .wordmark span{ background-position:0 100%; }
   .portal__stage, .feat__cover img{ transform:none !important; }
   .portal__orbit{ translate:none !important; }
 }
@@ -1157,61 +1030,6 @@ html.js [data-live]:not(.is-live) *::after{ animation-play-state:paused !importa
         </div>
         <span class="bento__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ KAKO FUNKCIONIŠE (koraci) ============ -->
-<section class="section story" id="kako-funkcionise" data-story data-step="1" data-live>
-  <div class="container story__grid">
-    <div class="story__text">
-      <h2 class="section-title reveal kin" data-split>Četiri koraka do prvog rezultata</h2>
-      <p class="lead reveal" data-delay="120">
-        Ne moraš da budeš programer. Treba ti redosled poteza i alati koji rade,
-        ostalo je vežba.
-      </p>
-
-      <div class="story__track">
-        <i class="story__fill" aria-hidden="true"></i>
-        <ol class="story__steps">
-          <li class="story__step is-active" data-n="1">
-            <span class="story__num" aria-hidden="true">01</span>
-            <div><h3>Nauči osnove</h3><p>Kako AI zapravo „razmišlja“, kako se piše prompt koji daje upotrebljiv rezultat i gde su granice alata.</p></div>
-          </li>
-          <li class="story__step" data-n="2">
-            <span class="story__num" aria-hidden="true">02</span>
-            <div><h3>Izaberi model zarade</h3><p>Sadržaj, usluge malim biznisima, digitalni proizvodi ili affiliate: biraš ono što odgovara tvom vremenu.</p></div>
-          </li>
-          <li class="story__step" data-n="3">
-            <span class="story__num" aria-hidden="true">03</span>
-            <div><h3>Automatizuj</h3><p>Šabloni, promptovi i alati koji preuzimaju dosadni deo posla: pisanje, dizajn, obradu podataka.</p></div>
-          </li>
-          <li class="story__step" data-n="4">
-            <span class="story__num" aria-hidden="true">04</span>
-            <div><h3>Skaliraj</h3><p>Kad sistem radi, povećavaš obim bez povećanja sati. Tu se AI zaista isplati.</p></div>
-          </li>
-        </ol>
-      </div>
-    </div>
-
-    <div class="story__stage-col" aria-hidden="true">
-      <div class="story__stage">
-        <div class="stage">
-          <div class="stage__halo"></div>
-          <svg class="stage__ring" viewBox="0 0 400 400">
-            <circle class="stage__ticks" cx="200" cy="200" r="197" pathLength="360"/>
-            <circle class="stage__arc" cx="200" cy="200" r="184" pathLength="100" stroke-dasharray="21 79" stroke-dashoffset="-2"/>
-            <circle class="stage__arc" cx="200" cy="200" r="184" pathLength="100" stroke-dasharray="21 79" stroke-dashoffset="-27"/>
-            <circle class="stage__arc" cx="200" cy="200" r="184" pathLength="100" stroke-dasharray="21 79" stroke-dashoffset="-52"/>
-            <circle class="stage__arc" cx="200" cy="200" r="184" pathLength="100" stroke-dasharray="21 79" stroke-dashoffset="-77"/>
-          </svg>
-          <div class="stage__floor"></div>
-          <img class="stage__pose" data-pose="1" style="--h:84%" width="532" height="913" src="assets/img/razmislja.webp" srcset="assets/img/razmislja-160w.webp 160w, assets/img/razmislja-240w.webp 240w, assets/img/razmislja-320w.webp 320w, assets/img/razmislja.webp 532w" sizes="(max-width: 960px) 160px, 300px" alt="" loading="lazy">
-          <img class="stage__pose" data-pose="2" style="--h:80%" width="706" height="768" src="assets/img/robot-present1.webp" srcset="assets/img/robot-present1-240w.webp 240w, assets/img/robot-present1-320w.webp 320w, assets/img/robot-present1-480w.webp 480w, assets/img/robot-present1.webp 706w" sizes="(max-width: 960px) 220px, 420px" alt="" loading="lazy">
-          <img class="stage__pose" data-pose="3" style="--h:78%" width="1042" height="1008" src="assets/img/robot-hero1.webp" srcset="assets/img/robot-hero1-240w.webp 240w, assets/img/robot-hero1-320w.webp 320w, assets/img/robot-hero1-480w.webp 480w, assets/img/robot-hero1-640w.webp 640w, assets/img/robot-hero1-800w.webp 800w, assets/img/robot-hero1.webp 1042w" sizes="(max-width: 960px) 220px, 420px" alt="" loading="lazy">
-          <img class="stage__pose" data-pose="4" style="--h:62%" width="471" height="399" src="assets/img/pare-pozadina-bez.webp" srcset="assets/img/pare-pozadina-bez-160w.webp 160w, assets/img/pare-pozadina-bez-240w.webp 240w, assets/img/pare-pozadina-bez-320w.webp 320w, assets/img/pare-pozadina-bez.webp 471w" sizes="(max-width: 960px) 200px, 400px" alt="" loading="lazy">
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -1460,8 +1278,6 @@ html.js [data-live]:not(.is-live) *::after{ animation-play-state:paused !importa
       <span>Neki linkovi ka alatima su <a href="/uslovi-koriscenja#affiliate" style="color:inherit;text-decoration:underline;">affiliate linkovi</a>, cena za tebe ostaje ista.</span>
       <span class="footer__legal"><a href="/politika-privatnosti">Politika privatnosti</a><a href="/uslovi-koriscenja">Uslovi korišćenja</a><a href="/politika-privatnosti#kolacici" data-cookie-settings>Kolačići</a></span>
     </div>
-
-    <div class="wordmark reveal" aria-hidden="true"><span>monetic</span><span class="ai">ai</span></div>
   </div>
 </footer>
 
@@ -1698,32 +1514,7 @@ html.js [data-live]:not(.is-live) *::after{ animation-play-state:paused !importa
     });
   })();
 
-  /* 7. Koraci: korak koji prelazi sredinu ekrana menja pozu maskote */
-  (function () {
-    var story = document.querySelector('[data-story]');
-    if (!story) return;
-    var steps = story.querySelectorAll('.story__step');
-    var mobile = mq('(max-width: 960px)');
-    var io = null;
-    function setStep(n) {
-      story.setAttribute('data-step', n);
-      story.style.setProperty('--p', ((n - 1) / (steps.length - 1)).toFixed(3));
-      for (var i = 0; i < steps.length; i++) steps[i].classList.toggle('is-active', i === n - 1);
-    }
-    function build() {
-      if (!hasIO) return;
-      if (io) io.disconnect();
-      io = new IntersectionObserver(function (es) {
-        es.forEach(function (e) { if (e.isIntersecting) setStep(+e.target.getAttribute('data-n')); });
-      }, { rootMargin: mobile.matches ? '-64% 0px -30% 0px' : '-46% 0px -46% 0px' });
-      for (var i = 0; i < steps.length; i++) io.observe(steps[i]);
-    }
-    setStep(1);
-    build();
-    if (mobile.addEventListener) mobile.addEventListener('change', build);
-  })();
-
-  /* 8. Interakcija mišem (samo računar, bez smanjenih pokreta) */
+  /* 7. Interakcija mišem (samo računar, bez smanjenih pokreta) */
   if (fine && !reduce) {
     /* ivice bento kartica svetle oko kursora */
     var bento = document.querySelector('.bento');
