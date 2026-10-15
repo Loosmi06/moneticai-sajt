@@ -85,7 +85,7 @@
 <meta name="theme-color" content="#08080B">
 <link rel="icon" href="assets/img/favicon.png" type="image/png">
 <script>document.documentElement.classList.add('js')</script>
-<link rel="preload" href="assets/img/7dana-do-provg-ai-projekta-knjiga.webp?v=2" as="image" type="image/webp" imagesrcset="assets/img/7dana-do-provg-ai-projekta-knjiga-160w.webp?v=2 160w, assets/img/7dana-do-provg-ai-projekta-knjiga-240w.webp?v=2 240w, assets/img/7dana-do-provg-ai-projekta-knjiga.webp?v=2 348w" imagesizes="(max-width: 960px) 120px, 190px">
+<link rel="preload" href="assets/img/7dana-do-provg-ai-projekta-knjiga.webp?v=2" as="image" type="image/webp" imagesrcset="assets/img/7dana-do-provg-ai-projekta-knjiga-160w.webp?v=2 160w, assets/img/7dana-do-provg-ai-projekta-knjiga-240w.webp?v=2 240w, assets/img/7dana-do-provg-ai-projekta-knjiga.webp?v=2 348w" imagesizes="(max-width: 960px) 260px, 332px">
 <link rel="stylesheet" href="assets/css/style.css?v=20261006">
 <style>
 /* =========================================================
@@ -231,6 +231,18 @@ html.js .reveal.reveal--host{ opacity:1; transform:none; }
   text-shadow:none;
 }
 .hero7 .hero__sub b{ color:var(--text); font-weight:600; }
+/* razmaci u tekstu heroja: svaki blok dobija svoj vazduh */
+.hero7 .crumbs{ margin-bottom:26px; }
+.hero7 .eyebrow{ margin-bottom:30px; }
+.hero7 h1{ margin-bottom:30px; }
+.hero7 .hero__sub{ margin-bottom:44px; line-height:1.7; }
+.hero7 .get-form{ row-gap:18px; }
+.hero7 .micro{ display:grid; grid-template-columns:repeat(2, max-content); gap:14px 44px; margin-top:38px; }
+.hero7 .micro li{ font-size:14px; }
+/* niži ekrani laptopova: manje praznog prostora iznad, da prsten i natpis stanu na prvi ekran */
+@media (min-width:961px) and (max-height:820px){
+  .hero7{ padding-top:calc(var(--nav-h) + 36px); }
+}
 html.js .hero7 .crumbs{ animation:riseIn .9s var(--ease-out) .05s backwards; }
 html.js .hero7 .eyebrow{ animation:riseIn .9s var(--ease-out) .12s backwards; }
 html.js .hero__title .w > span{ animation:wordUp 1.05s var(--ease-out) backwards; animation-delay:calc(.25s + var(--i) * 75ms); }
@@ -255,7 +267,8 @@ html.js .hero7 .micro svg path{ stroke-dasharray:24; stroke-dashoffset:24; anima
    ========================================================= */
 .dial-wrap{ flex-direction:column; align-items:center; }
 .dial{
-  position:relative; width:min(100%, 410px); aspect-ratio:1; margin:56px auto;
+  /* korica je oko 330px kao na pravoj stranici; prsten raste sa njom, ali ne preko teksta i ne ispod ekrana */
+  position:relative; width:min(100%, 520px); width:clamp(400px, min(100% + 40px, 100svh - 250px), 620px); aspect-ratio:1; margin:6px 0 22px; /* bez auto margina: kad je širi od kolone, ostaje centriran */
   container-type:inline-size;
   transform:perspective(1100px) rotateX(calc(var(--py, 0) * -6deg)) rotateY(calc(var(--px, 0) * 8deg));
   transition:transform 1s var(--ease-out);
@@ -269,9 +282,9 @@ html.js .hero7 .micro svg path{ stroke-dasharray:24; stroke-dashoffset:24; anima
 .dial__svg{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; rotate:-90deg; }
 .dial__svg circle{ fill:none; transform-box:view-box; transform-origin:50% 50%; }
 .dial__ticks{ stroke:rgba(255,255,255,.2); stroke-width:6; stroke-dasharray:.6 4.4; animation:spin 60s linear infinite; }
-.dial__base{ stroke:rgba(255,255,255,.12); stroke-width:2.5; }
+.dial__base{ stroke:rgba(255,255,255,.12); stroke-width:2; }
 .dial__arc{
-  stroke:#FF6A3D; stroke-width:4; stroke-linecap:round;
+  stroke:#FF6A3D; stroke-width:3.4; stroke-linecap:round;
   stroke-dasharray:100; stroke-dashoffset:calc(100 - var(--p, 0) * 100);
   filter:drop-shadow(0 0 7px #FF5733);
   transition:stroke-dashoffset .9s var(--ease-out);
@@ -287,38 +300,36 @@ html.js .hero7 .micro svg path{ stroke-dasharray:24; stroke-dashoffset:24; anima
 .dial__node{
   --t:rotate(calc(var(--i) * 51.4286deg)) translateY(-46cqw) rotate(calc(var(--i) * -51.4286deg));
   position:absolute; left:50%; top:50%; z-index:2;
-  width:30px; height:30px; margin:-15px 0 0 -15px; border-radius:50%;
-  display:grid; place-items:center; font-size:12px; font-weight:700; color:var(--text-dim);
+  width:34px; height:34px; margin:-17px 0 0 -17px; border-radius:50%;
+  display:grid; place-items:center; font-size:13px; font-weight:700; color:var(--text-dim);
   background:#0D0D12; border:1.5px solid rgba(255,255,255,.22);
   transform:var(--t);
   transition:background .35s, border-color .35s, color .35s, box-shadow .35s, transform .45s var(--ease-back);
 }
 .dial__node.on{ background:var(--brand); border-color:var(--brand); color:#fff; }
 .dial__node.now{ transform:var(--t) scale(1.2); box-shadow:0 0 0 6px rgba(255,87,51,.16), 0 0 20px rgba(255,87,51,.75); }
-.dial__chip{
-  position:absolute; left:50%; top:50%; z-index:3;
-  transform:rotate(calc(var(--i) * 51.4286deg)) translateY(calc(-46cqw - 30px)) rotate(calc(var(--i) * -51.4286deg));
-}
-/* čip se "lepi" spoljnom stranom uz svoju tačku na krugu, nikad preko nje */
-.dial__chip i{
-  display:block; transform:translate(calc(-50% + var(--ux, 0) * 50%), calc(-50% + var(--uy, -1) * 50%));
-  font-style:normal; white-space:nowrap;
-  padding:6px 12px; border-radius:100px;
-  font-size:12px; font-weight:600; color:var(--text-dim);
-  background:rgba(14,14,20,.8); border:1px solid var(--line-strong);
-  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
-  transition:color .35s, border-color .35s, background .35s, box-shadow .35s;
-}
-.dial__chip.on i{ color:var(--text); border-color:var(--brand-line); }
-.dial__chip.now i{ color:#fff; border-color:transparent; background:linear-gradient(100deg,var(--brand-2),var(--brand)); box-shadow:0 8px 22px rgba(255,87,51,.4); }
 .dial .dial__cover{
   position:absolute; left:50%; top:50%; z-index:1;
-  width:44%; height:auto; translate:-50% -52%;
+  width:53.5%; height:auto; translate:-50% -52%;
   filter:drop-shadow(0 30px 44px rgba(0,0,0,.6));
   animation:float 6.5s ease-in-out infinite;
 }
-.dial__cap{ display:none; margin:0; text-align:center; font-size:14px; color:var(--text-muted); min-height:1.6em; }
-.dial__cap b{ color:var(--text); font-weight:600; margin-right:4px; }
+.dial__cap{
+  display:inline-flex; align-items:center; gap:10px; margin:0;
+  padding:6px 18px 6px 6px; border-radius:100px; white-space:nowrap;
+  font-size:14.5px; color:var(--text);
+  background:rgba(14,14,20,.78); border:1px solid var(--line-strong);
+  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+}
+.dial__cap b{
+  display:inline-block; padding:5px 11px; border-radius:100px;
+  font-size:11.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#fff;
+  background:linear-gradient(100deg,var(--brand-2),var(--brand)); box-shadow:0 6px 16px rgba(255,87,51,.35);
+}
+.dial__cap span{ display:inline-block; }
+.dial__cap.flip > *{ animation:capIn .5s var(--ease-out) both; }
+.dial__cap.flip span{ animation-delay:.06s; }
+@keyframes capIn{ from{ opacity:0; transform:translateY(7px); } }
 
 /* =========================================================
    TRAKA SA ALATIMA IZ KURSA
@@ -501,44 +512,11 @@ html.js .kit__item--plus.on{ box-shadow:0 0 0 1px var(--brand-line), 0 18px 46px
 .tl__tools{ display:flex; flex-wrap:wrap; gap:7px; margin-top:14px; }
 .tl__tools span{ font-size:11.5px; padding:5px 10px; border-radius:100px; background:rgba(255,255,255,.06); border:1px solid var(--line); color:var(--text-dim); }
 /* kartice ulaze sa strane: clip (ne hidden) da ne naprave horizontalni skrol, a ne kvari sticky ni view() */
-.plan-s, .anat-s{ overflow-x:clip; }
+.plan-s{ overflow-x:clip; }
 html.js .tl__item .tl__card{ opacity:0; transition:opacity .7s var(--ease-out), transform .9s var(--ease-out), border-color .45s; }
 html.js .tl__item:nth-child(odd) .tl__card{ transform:translateX(-34px); }
 html.js .tl__item:nth-child(even) .tl__card{ transform:translateX(34px); }
 html.js .tl__item.seen .tl__card{ opacity:1; transform:none; }
-
-/* =========================================================
-   KAKO IZGLEDA SVAKI DAN
-   ========================================================= */
-.anat{ display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:clamp(28px,5vw,72px); align-items:center; }
-.anat__visual{ position:relative; display:flex; justify-content:center; }
-.anat__visual::after{
-  content:''; position:absolute; inset:auto 8% 2% 8%; height:40%; z-index:0;
-  background:radial-gradient(ellipse at 50% 80%, rgba(255,87,51,.24), transparent 68%); filter:blur(24px);
-}
-.anat__visual img{
-  position:relative; z-index:1; width:min(100%, 430px);
-  -webkit-mask-image:linear-gradient(to bottom, #000 82%, transparent 100%);
-          mask-image:linear-gradient(to bottom, #000 82%, transparent 100%);
-}
-html.js .anat__visual.reveal{ transform:translateX(-30px); }
-html.js .anat__visual.reveal.is-in{ transform:none; }
-.anat__list{ list-style:none; margin:clamp(20px,3vw,30px) 0 0; padding:0; display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; }
-.anat__list li{
-  display:grid; grid-template-columns:36px minmax(0,1fr); gap:14px; align-items:start;
-  padding:16px 18px; border-radius:var(--radius); background:var(--surface); border:1px solid var(--line);
-}
-.anat__list li:last-child{ grid-column:1 / -1; }
-.anat__list li > span{
-  width:36px; height:36px; border-radius:12px; display:grid; place-items:center;
-  font-weight:700; font-size:14px; color:#fff;
-  background:linear-gradient(140deg, var(--brand-2), var(--brand));
-  box-shadow:0 8px 20px rgba(255,87,51,.3);
-}
-.anat__list h3{ font-size:16px; margin:3px 0 4px; }
-.anat__list p{ color:var(--text-muted); font-size:14px; }
-html.js .anat__list li{ opacity:0; transform:translateY(16px); transition:opacity .6s var(--ease-out), transform .8s var(--ease-out); transition-delay:calc(.15s + var(--i) * .11s); }
-html.js .anat__list.is-in li{ opacity:1; transform:none; }
 
 /* =========================================================
    ISKRENO: "jeste" se štiklira, "nije" se precrta
@@ -592,7 +570,7 @@ html.js .flow.is-in .flow__step{ opacity:1; transform:none; }
 .faq__item.is-open .faq__q i{ transform:rotate(180deg); }
 
 /* =========================================================
-   ZAVRŠNI POZIV: drugi portal, robot ti pruža kurs
+   ZAVRŠNI POZIV: drugi portal, korica kursa lebdi nad podom
    ========================================================= */
 .cta-x{
   --loop:12s;
@@ -608,14 +586,21 @@ html.js .flow.is-in .flow__step{ opacity:1; transform:none; }
 .scene--cta{ z-index:-1; }
 .scene--cta .scene__floor{ height:clamp(96px,11vw,150px); perspective-origin:30% 0%; }
 .scene--cta .scene__horizon{ bottom:clamp(96px,11vw,150px); opacity:.8; }
-.cta-x__visual{ display:flex; justify-content:center; align-self:end; }
-.cta-x__visual img{
-  width:min(100%, 380px);
-  -webkit-mask-image:linear-gradient(to bottom, #000 80%, transparent 100%);
-          mask-image:linear-gradient(to bottom, #000 80%, transparent 100%);
+.cta-x__visual{
+  position:relative; display:flex; justify-content:center; align-self:center;
+  padding:clamp(8px,2vw,24px) 0 clamp(44px,6vw,84px);
 }
-html.js .cta-x__visual img{ opacity:0; transform:translateY(50px); transition:opacity .8s var(--ease-out) .2s, transform 1.2s var(--ease-out) .2s; }
-html.js .cta-x.is-in .cta-x__visual img{ opacity:1; transform:none; }
+.cta-x__visual::after{
+  content:''; position:absolute; z-index:0; left:16%; right:16%; bottom:clamp(30px,4vw,56px); height:56px;
+  background:radial-gradient(ellipse at 50% 50%, rgba(255,87,51,.55), transparent 70%); filter:blur(18px);
+}
+.cta-x__visual img{
+  position:relative; z-index:1; width:min(100%, 300px); height:auto;
+  filter:drop-shadow(0 30px 44px rgba(0,0,0,.6));
+  animation:float 7s ease-in-out infinite;
+}
+html.js .cta-x__visual img{ opacity:0; translate:0 50px; transition:opacity .8s var(--ease-out) .2s, translate 1.2s var(--ease-out) .2s; }
+html.js .cta-x.is-in .cta-x__visual img{ opacity:1; translate:0 0; }
 .cta-x__text{ align-self:center; padding-bottom:clamp(40px,6vw,80px); }
 .cta-x__text h2{ font-size:clamp(26px,3.3vw,42px); line-height:1.1; letter-spacing:-.035em; margin-bottom:16px; }
 .cta-x__text > p{ color:var(--text-muted); max-width:50ch; margin-bottom:26px; font-size:clamp(15.5px,1.4vw,17px); }
@@ -665,12 +650,6 @@ html.js [data-live]:not(.is-live) *::after{ animation-play-state:paused !importa
 /* =========================================================
    RESPONSIVE
    ========================================================= */
-@media (max-width:1199px){
-  /* uža kolona: čipovi oko prstena ne staju, pa dan i temu pišemo ispod */
-  .dial{ margin:28px auto 18px; }
-  .dial__chip{ display:none; }
-  .dial__cap{ display:block; }
-}
 @media (max-width:1080px){
   .kit__grid{ grid-template-columns:repeat(2, minmax(0,1fr)); }
 }
@@ -684,18 +663,16 @@ html.js [data-live]:not(.is-live) *::after{ animation-play-state:paused !importa
   .scene__horizon{ bottom:30%; }
   .scene__beam--a{ left:30%; width:60vw; }
 
-  .dial{ width:min(64vw, 270px); margin:8px auto 12px; }
-  .dial__chip{ display:none; }
-  .dial__cap{ display:block; }
+  .dial{ width:min(100%, 480px); margin:4px 0 18px; }
+  .dial__node{ width:30px; height:30px; margin:-15px 0 0 -15px; font-size:12px; }
+  .hero7 .micro{ justify-content:center; gap:12px 30px; }
 
   .mess-s__grid{ grid-template-columns:1fr; }
-  .anat{ grid-template-columns:1fr; }
-  .anat__visual img{ width:min(56%, 250px); }
-  html.js .anat__visual.reveal{ transform:translateY(20px); }
 
   .cta-x{ grid-template-columns:1fr; text-align:center; padding-top:clamp(32px,6vw,56px); }
   .cta-x__visual{ order:2; }
-  .cta-x__visual img{ width:min(62%, 260px); }
+  .cta-x__visual{ padding:4px 0 clamp(36px,8vw,56px); }
+  .cta-x__visual img{ width:min(56%, 220px); }
   .cta-x__text{ padding-bottom:8px; }
   .cta-x__text > p{ margin-inline:auto; }
   .cta-x__form{ margin-inline:auto; justify-content:center; }
@@ -727,10 +704,12 @@ html.js [data-live]:not(.is-live) *::after{ animation-play-state:paused !importa
   .flow__step h3{ margin-top:6px; }
   .flow__step p{ margin-inline:0; }
 }
+@media (max-width:560px){
+  .hero7 .micro{ grid-template-columns:max-content; gap:11px; }
+}
 @media (max-width:720px){
   .fit{ grid-template-columns:1fr; }
   .kit__grid{ grid-template-columns:1fr; }
-  .anat__list{ grid-template-columns:1fr; }
   .mess{ height:420px; }
   .cta-x{ padding-inline:20px; }
   .cta-x__form .btn{ width:100%; }
@@ -750,10 +729,11 @@ html.js [data-live]:not(.is-live) *::after{ animation-play-state:paused !importa
   html.js .kin .w > span{ transform:none !important; transition:none !important; }
   .ticker__track, .dial__ticks, .dial .dial__cover, .btn--shine::after, .mess__chip, .flow__dot{ animation:none !important; }
   .dial, .dial__arc, .dial__node, .mess__chip, .mess__chip b, .mess__note, .fit li, .fit__tick, .fit__tick::after,
-  .kit__item, .kit__check, .kit__fill, .tl__fill, .tl__card, .tl__node, .anat__list li, .flow__line, .flow__step,
+  .kit__item, .kit__check, .kit__fill, .tl__fill, .tl__card, .tl__node, .flow__line, .flow__step,
   .honest--no .strike, .honest--yes li svg path, .cta-x__visual img{ transition:none !important; }
   .dial{ transform:none !important; }
-  html.js .tl__item .tl__card, html.js .anat__list li, html.js .flow__step, html.js .cta-x__visual img{ opacity:1 !important; transform:none !important; }
+  html.js .tl__item .tl__card, html.js .flow__step, html.js .cta-x__visual img{ opacity:1 !important; transform:none !important; translate:none !important; }
+  .cta-x__visual img, .dial__cap > *{ animation:none !important; }
 }
 </style>
 </head>
@@ -855,7 +835,7 @@ html.js [data-live]:not(.is-live) *::after{ animation-play-state:paused !importa
           Pošalji mi besplatan kurs
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/></svg>
         </button>
-        <p class="consent-note" style="flex-basis:100%; margin:2px 0 0; opacity:.8;">Klikom na dugme pristaješ da ti pošaljemo kurs i povremene AI savete. Odjava jednim klikom. <a href="/politika-privatnosti">Politika privatnosti</a></p>
+        <p class="consent-note" style="flex-basis:100%; margin:0; opacity:.8;">Klikom na dugme pristaješ da ti pošaljemo kurs i povremene AI savete. Odjava jednim klikom. <a href="/politika-privatnosti">Politika privatnosti</a></p>
       </form>
       <p data-newsletter-msg style="opacity:0; transition:opacity .3s; margin-top:12px; font-size:14.5px; color:var(--text);"></p>
 
@@ -883,16 +863,9 @@ html.js [data-live]:not(.is-live) *::after{ animation-play-state:paused !importa
         <span class="dial__node" style="--i:4">5</span>
         <span class="dial__node" style="--i:5">6</span>
         <span class="dial__node" style="--i:6">7</span>
-        <span class="dial__chip on now" style="--i:0;--ux:0;--uy:-1"><i>Brend</i></span>
-        <span class="dial__chip" style="--i:1;--ux:.7818;--uy:-.6235"><i>Logo</i></span>
-        <span class="dial__chip" style="--i:2;--ux:.9749;--uy:.2225"><i>Sajt</i></span>
-        <span class="dial__chip" style="--i:3;--ux:.4339;--uy:.901"><i>Instagram</i></span>
-        <span class="dial__chip" style="--i:4;--ux:-.4339;--uy:.901"><i>AI vizuali</i></span>
-        <span class="dial__chip" style="--i:5;--ux:-.9749;--uy:.2225"><i>Chatbot</i></span>
-        <span class="dial__chip" style="--i:6;--ux:-.7818;--uy:-.6235"><i>Email lista</i></span>
-        <img class="dial__cover" width="348" height="508" src="assets/img/7dana-do-provg-ai-projekta-knjiga.webp?v=2" srcset="assets/img/7dana-do-provg-ai-projekta-knjiga-160w.webp?v=2 160w, assets/img/7dana-do-provg-ai-projekta-knjiga-240w.webp?v=2 240w, assets/img/7dana-do-provg-ai-projekta-knjiga.webp?v=2 348w" sizes="(max-width: 960px) 120px, 190px" alt="" fetchpriority="high">
+        <img class="dial__cover" width="348" height="508" src="assets/img/7dana-do-provg-ai-projekta-knjiga.webp?v=2" srcset="assets/img/7dana-do-provg-ai-projekta-knjiga-160w.webp?v=2 160w, assets/img/7dana-do-provg-ai-projekta-knjiga-240w.webp?v=2 240w, assets/img/7dana-do-provg-ai-projekta-knjiga.webp?v=2 348w" sizes="(max-width: 960px) 260px, 332px" alt="" fetchpriority="high">
       </div>
-      <p class="dial__cap"><b data-dial-day>Dan 1:</b> <span data-dial-topic>Brend i ideja</span></p>
+      <p class="dial__cap"><b data-dial-day>Dan 1</b><span data-dial-topic>Brend i ideja</span></p>
     </div>
   </div>
 </section>
@@ -1031,29 +1004,8 @@ html.js [data-live]:not(.is-live) *::after{ animation-play-state:paused !importa
   </div>
 </section>
 
-<!-- ============ KAKO IZGLEDA SVAKI DAN ============ -->
-<section class="section anat-s" style="background:var(--bg-2); border-block:1px solid var(--line);">
-  <div class="container anat">
-    <div class="anat__visual reveal">
-      <img width="706" height="768" src="assets/img/robot-present1.webp" srcset="assets/img/robot-present1-240w.webp 240w, assets/img/robot-present1-320w.webp 320w, assets/img/robot-present1-480w.webp 480w, assets/img/robot-present1.webp 706w" sizes="(max-width: 960px) 250px, 430px" alt="Robot maskota pokazuje strukturu dana" loading="lazy">
-    </div>
-    <div class="anat__text">
-      <h2 class="section-title reveal kin" data-split>Svaki dan izgleda isto, tako da znaš šta te čeka</h2>
-      <ol class="anat__list reveal reveal--host">
-        <li style="--i:0"><span aria-hidden="true">1</span><div><h3>Cilj dana</h3><p>Tačno šta praviš danas, u jednoj rečenici.</p></div></li>
-        <li style="--i:1"><span aria-hidden="true">2</span><div><h3>Zašto je važno</h3><p>Kako se ovaj korak uklapa u ceo starter kit.</p></div></li>
-        <li style="--i:2"><span aria-hidden="true">3</span><div><h3>Alatka dana</h3><p>Jedan AI alat, sa besplatnim planom koji je dovoljan.</p></div></li>
-        <li style="--i:3"><span aria-hidden="true">4</span><div><h3>Koraci</h3><p>Vodič korak po korak, bez pretpostavke da nešto već znaš.</p></div></li>
-        <li style="--i:4"><span aria-hidden="true">5</span><div><h3>Česte greške</h3><p>Šta obično krene naopako i kako to izbegneš.</p></div></li>
-        <li style="--i:5"><span aria-hidden="true">6</span><div><h3>Zadatak</h3><p>Konkretna stavka koju obeležiš kao završenu pre nego što pređeš dalje.</p></div></li>
-        <li style="--i:6"><span aria-hidden="true">7</span><div><h3>Pro savet (opciono)</h3><p>Za one koji žele da odu korak dalje istog dana.</p></div></li>
-      </ol>
-    </div>
-  </div>
-</section>
-
 <!-- ============ ISKRENO ============ -->
-<section class="section--tight">
+<section class="section--tight" style="padding-top:0;">
   <div class="container">
     <div class="honest reveal reveal--host">
       <div class="honest--yes">
@@ -1162,7 +1114,7 @@ html.js [data-live]:not(.is-live) *::after{ animation-play-state:paused !importa
       </div>
 
       <div class="cta-x__visual" aria-hidden="true">
-        <img width="1042" height="1008" src="assets/img/robot-hero1.webp" srcset="assets/img/robot-hero1-320w.webp 320w, assets/img/robot-hero1-480w.webp 480w, assets/img/robot-hero1-640w.webp 640w, assets/img/robot-hero1-800w.webp 800w, assets/img/robot-hero1.webp 1042w" sizes="(max-width: 960px) 260px, 380px" alt="" loading="lazy">
+        <img width="348" height="508" src="assets/img/7dana-do-provg-ai-projekta-knjiga.webp?v=2" srcset="assets/img/7dana-do-provg-ai-projekta-knjiga-160w.webp?v=2 160w, assets/img/7dana-do-provg-ai-projekta-knjiga-240w.webp?v=2 240w, assets/img/7dana-do-provg-ai-projekta-knjiga.webp?v=2 348w" sizes="(max-width: 960px) 220px, 300px" alt="" loading="lazy">
       </div>
 
       <div class="cta-x__text">
@@ -1352,7 +1304,7 @@ html.js [data-live]:not(.is-live) *::after{ animation-play-state:paused !importa
     var dial = document.querySelector('[data-dial]');
     if (!dial) return;
     var nodes = dial.querySelectorAll('.dial__node');
-    var chips = dial.querySelectorAll('.dial__chip');
+    var cap = document.querySelector('.dial__cap');
     var day = document.querySelector('[data-dial-day]');
     var topic = document.querySelector('[data-dial-topic]');
     var topics = ['Brend i ideja', 'Logo i vizuelni identitet', 'Prva landing stranica', 'Instagram i prve 3 objave', 'Profesionalni AI vizuali', 'Automatski odgovor na poruke', 'Email lista i prvi email'];
@@ -1362,13 +1314,13 @@ html.js [data-live]:not(.is-live) *::after{ animation-play-state:paused !importa
         var on = done || i <= k, now = !done && i === k;
         nodes[i].classList.toggle('on', on);
         nodes[i].classList.toggle('now', now);
-        if (chips[i]) { chips[i].classList.toggle('on', on); chips[i].classList.toggle('now', now); }
       }
       dial.style.setProperty('--p', done ? 1 : (k / nodes.length).toFixed(4));
       dial.classList.toggle('done', !!done);
       if (day) {
-        day.textContent = done ? 'Gotovo:' : 'Dan ' + (k + 1) + ':';
+        day.textContent = done ? 'Gotovo' : 'Dan ' + (k + 1);
         topic.textContent = done ? 'tvoj prvi AI projekat' : topics[k];
+        if (cap && !reduce) { cap.classList.remove('flip'); void cap.offsetWidth; cap.classList.add('flip'); }
       }
     }
     function tick() {
